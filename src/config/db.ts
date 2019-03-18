@@ -9,7 +9,6 @@ const db = new seq({
   database: env.DB_NAME,
   username: env.DB_USER,
   password: env.DB_PASSWORD,
-  port: env.DB_PORT,
   pool: {
     max: 5,
     min: 0,

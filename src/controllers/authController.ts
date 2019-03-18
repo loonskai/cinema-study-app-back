@@ -1,4 +1,4 @@
-import * as passport from 'koa-passport';
+import passport from '../config/passport';
 
 export default {
   async signup(ctx: any) {
