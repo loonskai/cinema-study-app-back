@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --watch 'src/**/*' -e ts,tsx --exec ts-node ./src/server.ts"
+    "start": "cross-env NODE_ENV=development nodemon --watch 'src/**/*' -e ts,tsx --exec 'ts-node' src/bin/www.ts"
   },
   "repository": {
     "type": "git",
@@ -18,8 +18,11 @@
   },
   "homepage": "https://github.com/sergaunt/cinema-study-app-back#readme",
   "dependencies": {
+    "@types/dotenv": "^6.1.0",
     "@types/passport-google-oauth2": "^0.1.2",
+    "dotenv": "^7.0.0",
     "jsonwebtoken": "^8.5.0",
+    "keyblade": "^0.3.2",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
     "koa-helmet": "^4.1.0",
@@ -32,7 +35,8 @@
     "passport-local": "^1.0.0",
     "pg": "^7.8.2",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^5.1.0"
+    "sequelize": "^5.1.0",
+    "yenv": "^2.1.0"
   },
   "devDependencies": {
     "@types/koa": "^2.0.48",
@@ -42,6 +46,7 @@
     "@types/koa-passport": "^4.0.2",
     "@types/koa-router": "^7.0.40",
     "@types/passport-local": "^1.0.33",
+    "cross-env": "^5.2.0",
     "nodemon": "^1.18.10",
     "prettier": "^1.16.4",
     "ts-node": "^8.0.3",

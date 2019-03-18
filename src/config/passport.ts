@@ -8,6 +8,10 @@ const GoogleStrategy: any = passportGoogle.Strategy;
 passport.use(
   new LocalStrategy((username, password, done) => {
     // Fetch user from DB
+    console.log(username);
+    console.log(password);
+    console.log('hi');
+    done(null, 'signed in');
   })
 );
 
