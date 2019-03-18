@@ -1,15 +1,11 @@
-import * as Koa from "koa";
-import * as Router from "koa-router";
-import * as helmet from "koa-helmet";
+import * as Koa from 'koa';
+import * as helmet from 'koa-helmet';
 
-var app = new Koa();
-const router = new Router();
+import router from './routes';
+
+const app = new Koa();
 
 app.use(helmet());
-
-router.get("/", async ctx => {
-  ctx.body = "Init app";
-});
 
 app.use(router.routes());
 

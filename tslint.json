@@ -1,16 +1,14 @@
 {
   "defaultSeverity": "error",
-  "extends": ["tslint:recommended", "tslint-config-prettier"],
+  "extends": [
+    "tslint-config-airbnb",
+    "tslint-config-prettier",
+    "tslint-plugin-prettier"
+  ],
   "jsRules": {},
   "rulesDirectory": ["tslint-plugin-prettier"],
   "rules": {
-    "prettier": [
-      true,
-      {
-        "semi": false,
-        "singleQuote": true
-      }
-    ],
+    "prettier": [true, ".prettierrc"],
     "no-console": false,
     "interface-name": false,
     "object-literal-sort-keys": false,
