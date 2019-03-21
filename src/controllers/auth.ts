@@ -2,10 +2,6 @@ import * as passport from 'koa-passport';
 import userService from '../services/user';
 
 export default {
-  async signup(ctx: any) {
-    ctx.body = 'sign up';
-  },
-
   async signin(ctx: any) {
     passport.authenticate('local', {
       successRedirect: '/',

@@ -4,13 +4,25 @@ import { UserType } from '../types/user';
 
 export default {
   async create(body: UserType) {
-    const result = await User.create(body);
-    return result;
+    await User.create(body);
+    return true;
   },
 
   findById(id: number) {},
 
-  findByLogin(login: string) {},
+  async findByUsername(username: string) {
+    const result = await User.findOne({
+      where: { username }
+    });
+    return result;
+  },
+
+  async findByEmail(email: string) {
+    const result = await User.findOne({
+      where: { email }
+    });
+    return result;
+  },
 
   delete(id: number) {}
 };

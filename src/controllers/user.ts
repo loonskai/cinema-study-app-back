@@ -2,7 +2,7 @@ import userService from '../services/user';
 import * as bcryptjs from 'bcryptjs';
 
 export default {
-  async create(ctx: any) {
+  async create(ctx: any, next: any) {
     const { body } = ctx.request;
     const salt = await bcryptjs.genSalt(10);
     const hash = await bcryptjs.hash(body.password, salt);
