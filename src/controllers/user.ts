@@ -10,6 +10,7 @@ export default {
     body.role = 'client';
     const result = await userService.create(body);
     if (result) {
+      ctx.status = 200;
       ctx.body = 'Succesfully signed up';
     } else {
       ctx.throw(500, 'Server error. Unable to sign up');

@@ -39,7 +39,7 @@ export default {
       if (existingUser) {
         throw new Error('User already exists');
       }
-      next();
+      await next();
     } catch (error) {
       console.log(error);
       ctx.status = 400;
