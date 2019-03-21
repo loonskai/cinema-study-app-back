@@ -1,8 +1,18 @@
 import userService from '../services/user';
+import * as bcryptjs from 'bcryptjs';
 
 export default {
   async create(ctx: any) {
-    console.log(ctx.request.body);
-    ctx.body = 'create user';
+    const { body } = ctx.request;
+    const salt = await bcryptjs.genSalt(10);
+    const hash = await bcryptjs.hash(body.password, salt);
+    body.password = hash;
+    body.role = 'client';
+    const result = await userService.create(body);
+    if (result) {
+      ctx.body = 'Succesfully signed up';
+    } else {
+      ctx.throw(500, 'Server error. Unable to sign up');
+    }
   }
 };

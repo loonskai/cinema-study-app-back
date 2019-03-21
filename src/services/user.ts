@@ -1,7 +1,12 @@
 import User from '../models/User';
 
+import { UserType } from '../types/user';
+
 export default {
-  create() {},
+  async create(body: UserType) {
+    const result = await User.create(body);
+    return result;
+  },
 
   findById(id: number) {},
 

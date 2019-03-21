@@ -3,7 +3,7 @@ import * as Joi from 'joi';
 import { UserType } from '../types/user';
 
 export default {
-  user(ctx: any) {
+  user(ctx: any, next: any) {
     const { body } = ctx.request;
     const schema = Joi.object().keys({
       username: Joi.string()
@@ -20,7 +20,11 @@ export default {
         .valid(Joi.ref('password'))
     });
     Joi.validate(body, schema, (err, func) => {
-      console.log(err);
+      if (err) {
+        ctx.body = err;
+      } else {
+        next();
+      }
     });
   }
 };

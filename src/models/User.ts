@@ -20,10 +20,15 @@ const User = db.define(
     password: {
       type: Sequilize.STRING,
       allowNull: false
+    },
+    role: {
+      type: Sequilize.ENUM('client', 'admin'),
+      default: 'client'
     }
   },
   {
-    schema: 'cinemaapp'
+    schema: 'cinemaapp',
+    timestamps: false
   }
 );
 
