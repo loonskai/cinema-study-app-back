@@ -12,7 +12,10 @@ const User = db.define(
     email: {
       type: Sequilize.STRING,
       allowNull: false,
-      unique: true
+      unique: true,
+      validate: {
+        isEmail: true
+      }
     },
     password: {
       type: Sequilize.STRING,
