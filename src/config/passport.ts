@@ -21,7 +21,8 @@ const fetchUser = async (username: number | string): Promise<UserType> => {
     id: 1,
     email: '',
     username: '',
-    password: ''
+    password: '',
+    confirmPassword: ''
   };
 };
 

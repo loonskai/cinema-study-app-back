@@ -1,4 +1,5 @@
 import * as passport from 'koa-passport';
+import userService from '../services/user';
 
 export default {
   async signup(ctx: any) {
