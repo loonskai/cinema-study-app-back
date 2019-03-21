@@ -1,65 +1,53 @@
 import * as passport from 'koa-passport';
 import * as passportLocal from 'passport-local';
-import * as passportGoogle from 'passport-google-oauth2';
-import User from '../models/User';
-import { NextFunction } from 'connect';
+import * as passportJwt from 'passport-jwt';
+import * as bcryptjs from 'bcryptjs';
 
-import { UserType } from '../types/user';
+import { env } from '../config/env';
+import userService from '../services/user';
 
-const LocalStrategy = passportLocal.Strategy;
-const JwtStrategy = passportLocal.Strategy;
-const GoogleStrategy: any = passportGoogle.Strategy;
+const LocalStrategy: any = passportLocal.Strategy;
+const JwtStrategy = passportJwt.Strategy;
 
-const fetchUser = async (username: number | string): Promise<UserType> => {
-  const user = await User.find({
-    where: {
-      username
-    }
-  });
-  console.log(user);
-  return {
-    id: 1,
-    email: '',
-    username: '',
-    password: '',
-    confirmPassword: ''
-  };
-};
-
-const options = {};
-
-/* passport.use(
-  new JwtStrategy(options, (payload, done) => {
-    done(null, payload);
-  })
-); */
-
-/* passport.serializeUser((user: UserType, done) => {
-  done(null, user.id);
-});
-
-passport.deserializeUser(async (id: number, done) => {
-  try {
-    const user: UserType = await fetchUser(id);
-    done(null, user);
-  } catch (err) {
-    done(err);
-  }
-}); */
-
-/* passport.use(
-  new LocalStrategy(async (username: string, password: string, done) => {
-    try {
-      const user: UserType = await fetchUser(username);
-      if (user.username === user.username && user.password === password) {
-        done(null, user);
-      } else {
-        done(null, false);
+passport.use(
+  new LocalStrategy(
+    {
+      usernameField: 'username',
+      passwordField: 'password',
+      session: false
+    },
+    async (username: string, password: string, done: any) => {
+      let user;
+      user = await userService.findByEmail(username);
+      if (!user) {
+        user = await userService.findByUsername(username);
       }
+      if (!user) return done(null, false, { message: 'User not found ' });
+      const passwordsMatch = await bcryptjs.compare(password, user.password);
+      if (!passwordsMatch) {
+        return done(null, false, { message: 'Wrong password' });
+      }
+      return done(null, user);
+    }
+  )
+);
+
+const jwtOptions = {
+  jwtFromRequest: () => {}, // function that gets jwt from request
+  secretOrKey: env.JWT_SECRET
+} as any;
+
+passport.use(
+  new JwtStrategy(jwtOptions, async (jwt_payload: any, done: any) => {
+    try {
+      const user: any = await userService.findById(jwt_payload.id);
+      if (!user) return done(null, false);
+      return done(null, user);
     } catch (error) {
-      done(error);
+      console.error(error);
+      return done(error, null);
     }
   })
-); */
+);
 
 // passport.use(new GoogleStrategy());

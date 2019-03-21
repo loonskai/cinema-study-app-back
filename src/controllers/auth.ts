@@ -1,13 +1,26 @@
 import * as passport from 'koa-passport';
-import userService from '../services/user';
+import * as jwt from 'jsonwebtoken';
+
+import { env } from '../config/env';
 
 export default {
-  async signin(ctx: any) {
-    passport.authenticate('local', {
-      successRedirect: '/',
-      failureRedirect: '/auth/signin'
-    });
-    ctx.body = 'sign in';
+  async signin(ctx: any, next: any) {
+    await passport.authenticate('local', (err, user) => {
+      if (user === false) {
+        ctx.body = 'Login failed';
+      } else {
+        const payload = {
+          id: user.id,
+          email: user.email,
+          role: user.role
+        };
+        const token = jwt.sign(payload, env.JWT_SECRET);
+        ctx.body = {
+          token,
+          user: user.email
+        };
+      }
+    })(ctx, next);
   },
 
   async signout(ctx: any) {
