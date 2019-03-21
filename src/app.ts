@@ -3,7 +3,6 @@ import * as Koa from 'koa';
 import * as helmet from 'koa-helmet';
 import * as logger from 'koa-logger';
 import * as bodyParser from 'koa-bodyparser';
-import * as passportConfig from './config/passport';
 import * as passport from 'koa-passport';
 
 import router from './routes';
@@ -19,6 +18,7 @@ db.authenticate()
   .then(() => console.log('Database connected.'))
   .catch((error: any) => console.log(error));
 
+require('./config/passport');
 app.use(passport.initialize());
 
 app.use(router.routes());

@@ -1,4 +1,4 @@
-import passport from '../config/passport';
+import * as passport from 'koa-passport';
 
 export default {
   async signup(ctx: any) {
@@ -10,6 +10,7 @@ export default {
       successRedirect: '/',
       failureRedirect: '/auth/signin'
     });
+    ctx.body = 'sign in';
   },
 
   async signout(ctx: any) {

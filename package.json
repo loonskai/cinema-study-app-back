@@ -18,8 +18,6 @@
   },
   "homepage": "https://github.com/sergaunt/cinema-study-app-back#readme",
   "dependencies": {
-    "@types/dotenv": "^6.1.0",
-    "@types/passport-google-oauth2": "^0.1.2",
     "dotenv": "^7.0.0",
     "jsonwebtoken": "^8.5.0",
     "keyblade": "^0.3.2",
@@ -39,12 +37,15 @@
     "yenv": "^2.1.0"
   },
   "devDependencies": {
+    "@types/dotenv": "^6.1.0",
     "@types/koa": "^2.0.48",
     "@types/koa-bodyparser": "^4.2.2",
     "@types/koa-helmet": "^3.1.2",
     "@types/koa-logger": "^3.1.1",
     "@types/koa-passport": "^4.0.2",
     "@types/koa-router": "^7.0.40",
+    "@types/node": "^11.11.4",
+    "@types/passport-google-oauth2": "^0.1.2",
     "@types/passport-local": "^1.0.33",
     "cross-env": "^5.2.0",
     "nodemon": "^1.18.10",
@@ -54,6 +55,6 @@
     "tslint-config-airbnb": "^5.11.1",
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-prettier": "^2.0.1",
-    "typescript": "^3.3.3333"
+    "typescript": "^3.3.4000"
   }
 }
