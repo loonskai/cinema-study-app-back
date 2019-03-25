@@ -6,13 +6,12 @@ import { env } from '../config/env';
 
 export default {
   async signin(ctx: any, next: any) {
-    await passport.authenticate('local', (err, user) => {
-      console.log(user.id);
+    await passport.authenticate('local', (err, user, info) => {
       if (user === false) {
         ctx.status = 404;
         ctx.body = {
           error: true,
-          message: 'User not found'
+          message: info.message
         };
       } else {
         const payload = {
