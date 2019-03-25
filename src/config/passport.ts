@@ -18,11 +18,11 @@ passport.use(
     },
     async (username: string, password: string, done: any) => {
       let user;
-      user = await userService.findByEmail(username);
+      user = await userService.findByUsername(username);
       if (!user) {
-        user = await userService.findByUsername(username);
+        user = await userService.findByEmail(username);
       }
-      if (!user) return done(null, false, { message: 'User not found ' });
+      if (!user) return done(null, false, { message: 'User not found' });
       const passwordsMatch = await bcryptjs.compare(password, user.password);
       if (!passwordsMatch) {
         return done(null, false, { message: 'Wrong password' });
@@ -50,4 +50,5 @@ passport.use(
   })
 );
 
+export default passport;
 // passport.use(new GoogleStrategy());

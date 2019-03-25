@@ -1,13 +1,19 @@
 import * as passport from 'koa-passport';
 import * as jwt from 'jsonwebtoken';
 
+import '../config/passport';
 import { env } from '../config/env';
 
 export default {
   async signin(ctx: any, next: any) {
     await passport.authenticate('local', (err, user) => {
+      console.log(user.id);
       if (user === false) {
-        ctx.body = 'Login failed';
+        ctx.status = 404;
+        ctx.body = {
+          error: true,
+          message: 'User not found'
+        };
       } else {
         const payload = {
           id: user.id,
@@ -33,5 +39,12 @@ export default {
 
   async googleSignin(ctx: any) {
     passport.authenticate('google');
+  },
+
+  async compileReqBodyUsername(ctx: any, next: any) {
+    if (!ctx.request.body.username) {
+      ctx.request.body.username = ctx.request.body.email;
+    }
+    await next();
   }
 };

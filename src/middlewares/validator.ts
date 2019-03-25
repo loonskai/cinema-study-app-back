@@ -37,7 +37,7 @@ export default {
         existingUser = await userService.findByEmail(body.email);
       }
       if (existingUser) {
-        throw new Error('User already exists');
+        throw new Error('Email or username already in use');
       }
       await next();
     } catch (error) {

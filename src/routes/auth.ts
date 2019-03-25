@@ -7,7 +7,11 @@ import validator from '../middlewares/validator';
 const router = new Router();
 
 router.post('/signup', validator.user, userController.create);
-router.post('/signin', authController.signin);
+router.post(
+  '/signin',
+  authController.compileReqBodyUsername,
+  authController.signin
+);
 router.post('/signout', authController.signout);
 router.post('/google', authController.googleSignin);
 

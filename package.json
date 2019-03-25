@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/sergaunt/cinema-study-app-back#readme",
   "dependencies": {
+    "@koa/cors": "^2.2.3",
     "bcryptjs": "^2.4.3",
     "dotenv": "^7.0.0",
     "joi": "^14.3.1",
@@ -48,6 +49,7 @@
     "@types/koa-logger": "^3.1.1",
     "@types/koa-passport": "^4.0.2",
     "@types/koa-router": "^7.0.40",
+    "@types/koa__cors": "^2.2.3",
     "@types/node": "^11.11.4",
     "@types/passport-google-oauth2": "^0.1.2",
     "@types/passport-jwt": "^3.0.1",
