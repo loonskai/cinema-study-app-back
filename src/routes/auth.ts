@@ -13,6 +13,7 @@ router.post(
   authController.compileReqBodyUsername,
   authController.signin
 );
+router.post('/validate', authController.validateToken);
 router.post('/signout', authController.signout);
 router.post('/google', authController.googleSignin);
 

@@ -1,21 +1,17 @@
 import Sequilize from 'sequelize';
 
 import db from '../config/db';
-import City from './City';
 
-const Movie = db.define(
+const Cinema = db.define(
   'cinema',
   {
     title: {
       type: Sequilize.STRING,
       allowNull: false
     },
-    cityId: {
-      type: Sequilize.INTEGER,
-      references: {
-        model: City,
-        key: 'id'
-      }
+    city: {
+      type: Sequilize.STRING,
+      allowNull: false
     }
   },
   {
@@ -23,4 +19,4 @@ const Movie = db.define(
   }
 );
 
-export default Movie;
+export default Cinema;

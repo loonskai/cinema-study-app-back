@@ -27,6 +27,7 @@
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
     "koa-helmet": "^4.1.0",
+    "koa-jwt": "^3.5.1",
     "koa-logger": "^3.2.0",
     "koa-passport": "^4.1.1",
     "koa-router": "^7.4.0",
@@ -37,6 +38,7 @@
     "pg": "^7.8.2",
     "pg-hstore": "^2.3.2",
     "sequelize": "^5.1.0",
+    "sequelize-cli": "^5.4.0",
     "yenv": "^2.1.0"
   },
   "devDependencies": {

@@ -48,5 +48,28 @@ export default {
         message: error.message
       };
     }
+  },
+
+  async cinema(ctx: any, next: any) {
+    try {
+      const { body } = ctx.request;
+      const schema = Joi.object().keys({
+        title: Joi.string()
+          .min(2)
+          .required(),
+        city: Joi.string()
+          .min(2)
+          .required()
+      });
+      await Joi.validate(body, schema);
+      await next();
+    } catch (error) {
+      console.log(error);
+      ctx.status = 400;
+      ctx.body = {
+        error: true,
+        message: error.message
+      };
+    }
   }
 };
