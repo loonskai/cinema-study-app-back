@@ -1,4 +1,4 @@
-import * as http from 'http';
+import http from 'http';
 import { env } from '../config/env';
 import app from '../app';
 

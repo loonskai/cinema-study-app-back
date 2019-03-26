@@ -1,7 +1,7 @@
-import * as passport from 'koa-passport';
-import * as passportLocal from 'passport-local';
-import * as passportJwt from 'passport-jwt';
-import * as bcryptjs from 'bcryptjs';
+import passport from 'koa-passport';
+import passportLocal from 'passport-local';
+import passportJwt from 'passport-jwt';
+import bcryptjs from 'bcryptjs';
 
 import { env } from '../config/env';
 import userService from '../services/user';
@@ -33,7 +33,7 @@ passport.use(
 );
 
 const jwtOptions = {
-  jwtFromRequest: () => {}, // function that gets jwt from request
+  jwtFromRequest: passportJwt.ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: env.JWT_SECRET
 } as any;
 

@@ -1,4 +1,4 @@
-import * as Sequilize from 'sequelize';
+import Sequilize from 'sequelize';
 import { env } from '../config/env';
 
 const seq: any = Sequilize;

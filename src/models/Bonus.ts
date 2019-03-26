@@ -1,6 +1,6 @@
-import * as Sequilize from 'sequelize';
-import db from '../config/db';
+import Sequilize from 'sequelize';
 
+import db from '../config/db';
 import Cinema from './Cinema';
 
 const Bonus = db.define(

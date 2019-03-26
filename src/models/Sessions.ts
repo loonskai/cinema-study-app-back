@@ -1,4 +1,5 @@
-import * as Sequilize from 'sequelize';
+import Sequilize from 'sequelize';
+
 import db from '../config/db';
 import Movie from './Movie';
 import Hall from './Hall';

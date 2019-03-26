@@ -1,10 +1,10 @@
-import * as dotenv from 'dotenv';
-import * as Koa from 'koa';
-import * as helmet from 'koa-helmet';
-import * as logger from 'koa-logger';
-import * as bodyParser from 'koa-bodyparser';
-import * as passport from 'koa-passport';
-import * as cors from '@koa/cors';
+import dotenv from 'dotenv';
+import Koa from 'koa';
+import helmet from 'koa-helmet';
+import logger from 'koa-logger';
+import bodyParser from 'koa-bodyparser';
+import passport from 'koa-passport';
+import cors from '@koa/cors';
 
 import router from './routes';
 import db from './config/db';

@@ -1,5 +1,5 @@
-import * as passport from 'koa-passport';
-import * as jwt from 'jsonwebtoken';
+import passport from 'koa-passport';
+import jwt from 'jsonwebtoken';
 
 import '../config/passport';
 import { env } from '../config/env';
@@ -7,6 +7,7 @@ import { env } from '../config/env';
 export default {
   async signin(ctx: any, next: any) {
     await passport.authenticate('local', (err, user, info) => {
+      console.log(ctx);
       if (user === false) {
         ctx.status = 404;
         ctx.body = {
@@ -22,7 +23,8 @@ export default {
         const token = jwt.sign(payload, env.JWT_SECRET);
         ctx.body = {
           token,
-          user: user.email
+          user: user.email,
+          role: user.role
         };
       }
     })(ctx, next);

@@ -1,4 +1,4 @@
-import * as Joi from 'joi';
+import Joi from 'joi';
 
 import { UserType } from '../types/user';
 import userService from '../services/user';

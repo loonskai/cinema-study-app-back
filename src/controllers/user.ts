@@ -1,5 +1,6 @@
+import bcryptjs from 'bcryptjs';
+
 import userService from '../services/user';
-import * as bcryptjs from 'bcryptjs';
 
 export default {
   async create(ctx: any, next: any) {
