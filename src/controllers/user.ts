@@ -1,10 +1,16 @@
 import bcryptjs from 'bcryptjs';
 
+import { Middleware } from 'koa';
+
 import ApiError from '../classes/ApiError';
 import userService from '../services/user';
 
+interface Controller {
+  create: Middleware;
+}
+
 export default {
-  async create(ctx: any, next: any) {
+  async create(ctx, next) {
     const { body } = ctx.request;
     const salt = await bcryptjs.genSalt(10);
     const hash = await bcryptjs.hash(body.password, salt);
@@ -15,4 +21,4 @@ export default {
     ctx.status = 200;
     ctx.body = 'Succesfully signed up';
   }
-};
+} as Controller;

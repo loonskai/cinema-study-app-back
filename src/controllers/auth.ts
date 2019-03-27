@@ -1,6 +1,7 @@
 import passport from 'koa-passport';
-// import koaJwt from 'koa-jwt';
 import jwt from 'jsonwebtoken';
+
+import { Context, Middleware } from 'koa';
 
 import '../config/passport';
 import { env } from '../config/env';
@@ -13,33 +14,37 @@ interface ParsedToken {
   iat: number;
 }
 
+interface Controller {
+  signin: Middleware;
+  signout: Middleware;
+  validateToken: Middleware;
+  googleSignin: Middleware;
+}
+
 export default {
-  async signin(ctx: any, next: any) {
+  async signin(ctx, next) {
     await passport.authenticate('local', (err, user, info) => {
-      if (user === false) {
-        throw new ApiError(404, info.message);
-      } else {
-        const payload = {
-          id: user.id,
-          email: user.email,
-          role: user.role
-        };
-        const token = jwt.sign(payload, env.JWT_SECRET);
-        ctx.body = {
-          token,
-          user: user.email,
-          role: user.role
-        };
-      }
-    })(ctx, next);
+      if (user === false) throw new ApiError(404, info.message);
+      const payload = {
+        id: user.id,
+        email: user.email,
+        role: user.role
+      };
+      const token = jwt.sign(payload, env.JWT_SECRET);
+      ctx.body = {
+        token,
+        user: user.email,
+        role: user.role
+      };
+    })(ctx, next as any);
   },
 
-  async signout(ctx: any) {
+  async signout(ctx) {
     ctx.body = 'sign out';
   },
 
-  async validateToken(ctx: any) {
-    const { token } = ctx.request.body;
+  async validateToken(ctx) {
+    const { token }: { token: string } = ctx.request.body;
     if (!token) {
       throw new ApiError(404, 'Token not found');
     }
@@ -56,14 +61,7 @@ export default {
     };
   },
 
-  async googleSignin(ctx: any) {
+  async googleSignin(ctx) {
     passport.authenticate('google');
-  },
-
-  async compileReqBodyUsername(ctx: any, next: any) {
-    if (!ctx.request.body.username) {
-      ctx.request.body.username = ctx.request.body.email;
-    }
-    await next();
   }
-};
+} as Controller;

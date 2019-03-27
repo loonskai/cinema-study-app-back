@@ -1,4 +1,6 @@
-export default async (ctx: any, next: any) => {
+import { Context } from 'koa';
+
+export default async (ctx: Context, next: Function): Promise<void> => {
   try {
     await next();
   } catch (err) {

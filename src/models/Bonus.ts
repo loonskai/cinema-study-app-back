@@ -1,9 +1,17 @@
-import Sequilize from 'sequelize';
+import Sequilize, { Model } from 'sequelize';
 
 import db from '../config/db';
 import Cinema from './Cinema';
 
-const Bonus = db.define(
+interface BonusAttributes {
+  cinemaId: number;
+  title: string;
+  price: number;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+const Bonus: Model<BonusAttributes> = db.define(
   'bonus',
   {
     cinemaId: {

@@ -39,6 +39,7 @@
     "pg-hstore": "^2.3.2",
     "sequelize": "^5.1.0",
     "sequelize-cli": "^5.4.0",
+    "sequelize-typescript": "^1.0.0-alpha.9",
     "yenv": "^2.1.0"
   },
   "devDependencies": {

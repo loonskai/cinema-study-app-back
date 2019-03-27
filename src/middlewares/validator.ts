@@ -1,13 +1,13 @@
 import Joi from 'joi';
 
-import { UserType } from '../types/user';
+import { Context } from 'koa';
 
 import userService from '../services/user';
 import ApiError from '../classes/ApiError';
 import customizeJoiError from '../helpers/customizeJoiError';
 
 export default {
-  async user(ctx: any, next: any) {
+  async user(ctx: Context, next: Function): Promise<void> {
     const { body } = ctx.request;
     const schema = Joi.object().keys({
       username: Joi.string()
@@ -44,26 +44,17 @@ export default {
     await next();
   },
 
-  async cinema(ctx: any, next: any) {
-    try {
-      const { body } = ctx.request;
-      const schema = Joi.object().keys({
-        title: Joi.string()
-          .min(2)
-          .required(),
-        city: Joi.string()
-          .min(2)
-          .required()
-      });
-      await Joi.validate(body, schema);
-      await next();
-    } catch (error) {
-      console.log(error);
-      ctx.status = 400;
-      ctx.body = {
-        error: true,
-        message: error.message
-      };
-    }
+  async cinema(ctx: Context, next: Function): Promise<void> {
+    const { body } = ctx.request;
+    const schema = Joi.object().keys({
+      title: Joi.string()
+        .min(2)
+        .required(),
+      city: Joi.string()
+        .min(2)
+        .required()
+    });
+    await Joi.validate(body, schema, customizeJoiError);
+    await next();
   }
 };
