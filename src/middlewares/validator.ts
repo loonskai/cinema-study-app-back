@@ -4,6 +4,7 @@ import { UserType } from '../types/user';
 
 import userService from '../services/user';
 import ApiError from '../classes/ApiError';
+import customizeJoiError from '../helpers/customizeJoiError';
 
 export default {
   async user(ctx: any, next: any) {
@@ -31,7 +32,7 @@ export default {
         .required()
         .valid(Joi.ref('password'))
     });
-    await Joi.validate(body, schema);
+    await Joi.validate(body, schema, customizeJoiError);
     let existingUser;
     existingUser = await userService.findByUsername(body.username);
     if (!existingUser) {
