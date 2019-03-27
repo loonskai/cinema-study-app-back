@@ -1,12 +1,12 @@
 import Joi from 'joi';
 
-import ApiError from '../classes/ApiError';
 import { UserType } from '../types/user';
+
 import userService from '../services/user';
+import ApiError from '../classes/ApiError';
 
 export default {
   async user(ctx: any, next: any) {
-    // try {
     const { body } = ctx.request;
     const schema = Joi.object().keys({
       username: Joi.string()
@@ -41,14 +41,6 @@ export default {
       throw new ApiError(400, 'Email or username already in use');
     }
     await next();
-    /*     } catch (error) {
-      console.log(error);
-      ctx.status = 400;
-      ctx.body = {
-        error: true,
-        message: error.message
-      };
-    } */
   },
 
   async cinema(ctx: any, next: any) {

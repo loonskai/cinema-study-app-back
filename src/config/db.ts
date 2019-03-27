@@ -17,4 +17,6 @@ const db = new seq({
   }
 });
 
+db.sync();
+
 export default db;

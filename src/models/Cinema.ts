@@ -19,6 +19,4 @@ const Cinema = db.define(
   }
 );
 
-Cinema.sync();
-
 export default Cinema;

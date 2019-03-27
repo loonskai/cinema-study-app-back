@@ -4,6 +4,7 @@ import passportJwt from 'passport-jwt';
 import bcryptjs from 'bcryptjs';
 
 import { env } from '../config/env';
+import apiError from '../classes/ApiError';
 import userService from '../services/user';
 
 const LocalStrategy: any = passportLocal.Strategy;

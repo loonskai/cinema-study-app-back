@@ -31,6 +31,4 @@ const Session = db.define(
   }
 );
 
-Session.syns();
-
 export default Session;

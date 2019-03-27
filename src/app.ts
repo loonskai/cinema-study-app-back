@@ -20,12 +20,12 @@ app.use(
     credentials: true
   })
 );
-app.use(errorHandler);
 
 db.authenticate()
   .then(() => console.log('Database connected.'))
   .catch((error: any) => console.log(error));
 
+app.use(errorHandler);
 require('./config/passport');
 app.use(passport.initialize());
 app.use(router.routes());

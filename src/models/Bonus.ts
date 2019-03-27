@@ -31,6 +31,4 @@ const Bonus = db.define(
   }
 );
 
-Bonus.sync();
-
 export default Bonus;

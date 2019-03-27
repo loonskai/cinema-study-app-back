@@ -33,6 +33,4 @@ const User = db.define(
   }
 );
 
-User.sync();
-
 export default User;

@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 
 import '../config/passport';
 import { env } from '../config/env';
+import ApiError from '../classes/ApiError';
 
 interface ParsedToken {
   id: number;
@@ -16,11 +17,7 @@ export default {
   async signin(ctx: any, next: any) {
     await passport.authenticate('local', (err, user, info) => {
       if (user === false) {
-        ctx.status = 404;
-        ctx.body = {
-          error: true,
-          message: info.message
-        };
+        throw new ApiError(404, info.message);
       } else {
         const payload = {
           id: user.id,
@@ -42,30 +39,21 @@ export default {
   },
 
   async validateToken(ctx: any) {
-    try {
-      const { token } = ctx.request.body;
-      if (!token) {
-        throw Error('Token not found');
-      }
-      const result: any = jwt.verify(token, env.JWT_SECRET);
-      if (typeof result === 'string') {
-        throw Error('Token not valid');
-      }
-      ctx.body = {
-        success: true,
-        data: {
-          user: result.email,
-          role: result.role
-        }
-      };
-    } catch (error) {
-      console.error(error);
-      ctx.status = 400;
-      ctx.body = {
-        error: true,
-        message: error.message
-      };
+    const { token } = ctx.request.body;
+    if (!token) {
+      throw new ApiError(404, 'Token not found');
     }
+    const result: any = jwt.verify(token, env.JWT_SECRET);
+    if (typeof result === 'string') {
+      throw new ApiError(404, 'Token not valid');
+    }
+    ctx.body = {
+      success: true,
+      data: {
+        user: result.email,
+        role: result.role
+      }
+    };
   },
 
   async googleSignin(ctx: any) {

@@ -26,6 +26,4 @@ const Movie = db.define(
   }
 );
 
-Movie.sync();
-
 export default Movie;
