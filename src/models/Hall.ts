@@ -25,4 +25,6 @@ const Hall = db.define(
   }
 );
 
+Hall.sync();
+
 export default Hall;

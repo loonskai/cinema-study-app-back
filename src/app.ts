@@ -8,6 +8,7 @@ import cors from '@koa/cors';
 
 import router from './routes';
 import db from './config/db';
+import errorHandler from './middlewares/errorHandler';
 
 const app = new Koa();
 
@@ -19,6 +20,7 @@ app.use(
     credentials: true
   })
 );
+app.use(errorHandler);
 
 db.authenticate()
   .then(() => console.log('Database connected.'))

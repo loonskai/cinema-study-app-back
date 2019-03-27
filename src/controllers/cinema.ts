@@ -8,7 +8,7 @@ export default {
       ctx.status = 200;
       ctx.body = 'Succesfully created cinema';
     } else {
-      ctx.throw(500, 'Server error. Unable to sign up');
+      ctx.throw(500, 'Server error. Unable to create cinema');
     }
   }
 };
