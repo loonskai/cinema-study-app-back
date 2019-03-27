@@ -2,15 +2,16 @@ import bcryptjs from 'bcryptjs';
 
 import { Middleware } from 'koa';
 
-import ApiError from '../classes/ApiError';
 import userService from '../services/user';
+import ApiError from '../classes/ApiError';
+import parseSuccessResponse from '../helpers/parseSuccessResponse';
 
 interface Controller {
   create: Middleware;
 }
 
 export default {
-  async create(ctx, next) {
+  async create(ctx) {
     const { body } = ctx.request;
     const salt = await bcryptjs.genSalt(10);
     const hash = await bcryptjs.hash(body.password, salt);
@@ -18,7 +19,6 @@ export default {
     body.role = 'client';
     const result = await userService.create(body);
     if (!result) throw new ApiError(500, 'Unable to sign up');
-    ctx.status = 200;
-    ctx.body = 'Succesfully signed up';
+    ctx.body = parseSuccessResponse('Succesfully signed up');
   }
 } as Controller;

@@ -6,6 +6,7 @@ import { Context, Middleware } from 'koa';
 import '../config/passport';
 import { env } from '../config/env';
 import ApiError from '../classes/ApiError';
+import parseSuccessResponse from '../helpers/parseSuccessResponse';
 
 interface ParsedToken {
   id: number;
@@ -31,16 +32,16 @@ export default {
         role: user.role
       };
       const token = jwt.sign(payload, env.JWT_SECRET);
-      ctx.body = {
+      ctx.body = parseSuccessResponse({
         token,
         user: user.email,
         role: user.role
-      };
+      });
     })(ctx, next as any);
   },
 
   async signout(ctx) {
-    ctx.body = 'sign out';
+    ctx.body = parseSuccessResponse('Succesfully signed out');
   },
 
   async validateToken(ctx) {
@@ -52,13 +53,10 @@ export default {
     if (typeof result === 'string') {
       throw new ApiError(404, 'Token not valid');
     }
-    ctx.body = {
-      success: true,
-      data: {
-        user: result.email,
-        role: result.role
-      }
-    };
+    ctx.body = parseSuccessResponse({
+      user: result.email,
+      role: result.role
+    });
   },
 
   async googleSignin(ctx) {
