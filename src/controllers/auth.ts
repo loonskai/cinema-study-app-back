@@ -1,7 +1,7 @@
 import passport from 'koa-passport';
 import jwt from 'jsonwebtoken';
 
-import { Context, Middleware } from 'koa';
+import { Controller } from '../types/base';
 
 import '../config/passport';
 import { env } from '../config/env';
@@ -13,13 +13,6 @@ interface ParsedToken {
   email: string;
   role: string;
   iat: number;
-}
-
-interface Controller {
-  signin: Middleware;
-  signout: Middleware;
-  validateToken: Middleware;
-  googleSignin: Middleware;
 }
 
 export default {

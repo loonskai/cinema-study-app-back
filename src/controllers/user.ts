@@ -1,14 +1,10 @@
 import bcryptjs from 'bcryptjs';
 
-import { Middleware } from 'koa';
+import { Controller } from '../types/base';
 
 import userService from '../services/user';
 import ApiError from '../classes/ApiError';
 import parseSuccessResponse from '../helpers/parseSuccessResponse';
-
-interface Controller {
-  create: Middleware;
-}
 
 export default {
   async create(ctx) {
