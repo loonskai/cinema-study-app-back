@@ -9,7 +9,7 @@ export default {
   },
 
   async getAll(): Promise<CinemaType[]> {
-    const result = await Cinema.findAll({ raw: true });
+    const result = await Cinema.findAll({ raw: true, order: [['id', 'DESC']] });
     return result;
   },
 
