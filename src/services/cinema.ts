@@ -11,5 +11,14 @@ export default {
   async getAll(): Promise<CinemaType[]> {
     const result = await Cinema.findAll({ raw: true });
     return result;
+  },
+
+  async update(id: number, body: CinemaType): Promise<CinemaType | any> {
+    const result = await Cinema.update(body, {
+      where: { id },
+      returning: true,
+      raw: true
+    });
+    return result[0] === 1 && result[1];
   }
 };
