@@ -19,6 +19,11 @@ export default {
       returning: true,
       raw: true
     });
-    return result[0] === 1 && result[1];
+    return !!result[0] && result[1];
+  },
+
+  async delete(id: number): Promise<any> {
+    const result = await Cinema.destroy({ where: { id } });
+    return !!result;
   }
 };

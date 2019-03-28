@@ -26,5 +26,13 @@ export default {
     const [result] = await cinemaService.update(+id, body);
     if (!result) throw new ApiError(500, 'Unable to update cinema');
     ctx.body = parseSuccessResponse(result);
+  },
+
+  async delete(ctx) {
+    const { id } = ctx.params;
+    if (!id) throw new ApiError(404, 'Cinema ID not defined');
+    const result = await cinemaService.delete(+id);
+    if (!result) throw new ApiError(500, 'Unable to delete cinema');
+    ctx.body = parseSuccessResponse('Succesfully delete cinema');
   }
 } as Controller;

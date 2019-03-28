@@ -9,5 +9,6 @@ const router = new Router();
 router.get('/', cinemaController.getAll);
 router.post('/', validator.cinema, cinemaController.create);
 router.patch('/:id', validator.cinema, cinemaController.update);
+router.delete('/:id', cinemaController.delete);
 
 export default router;
