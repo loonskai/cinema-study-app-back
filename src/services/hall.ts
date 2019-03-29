@@ -4,7 +4,8 @@ import { HallType } from '../types/hall';
 
 export default {
   async create(body: HallType): Promise<boolean> {
-    await Hall.create(body);
+    console.log(body);
+    // await Hall.create(body);
     return true;
   },
 

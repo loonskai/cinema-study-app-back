@@ -27,15 +27,17 @@ const RowCategory: Model<CategoryAttributes> | any = sequelize.define(
 );
 
 const initialCategories = [
-  { title: 'VIP' },
-  { title: 'Basic' },
-  { title: 'Back seats' }
+  { id: 1, title: 'VIP' },
+  { id: 2, title: 'Basic' },
+  { id: 3, title: 'Back seats' }
 ];
 
 RowCategory.sync().then(() => {
-  RowCategory.bulkCreate(initialCategories);
+  RowCategory.bulkCreate(initialCategories, {
+    ignoreDuplicates: true
+  });
 });
 
-RowCategory.hasMany(RowModel, { as: 'rows', foreignKey: 'category-id' });
+// RowCategory.hasMany(RowModel, { as: 'rows', foreignKey: 'category-id' });
 
 export default RowCategory;

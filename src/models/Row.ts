@@ -35,9 +35,9 @@ const Row = sequelize.define(
   targetKey: 'id'
 }); */
 
-/* Row.belongsTo(RowCategoryModel, {
-  foreingKey: 'category-id',
+Row.belongsTo(RowCategoryModel, {
+  foreignKey: 'category-id',
   targetKey: 'id'
-}); */
+});
 
 export default Row;
