@@ -14,10 +14,10 @@ export default {
 
   async create(ctx) {
     const { body } = ctx.request;
-    console.log(body);
-    /*     const result = await hallService.create(body);
+    body['cinema-id'] = parseInt(body.cinemaID, 10);
+    const result = await hallService.create(body);
     if (!result) throw new ApiError(500, 'Unable to create hall');
-    ctx.body = parseSuccessResponse('Succesfully created hall'); */
+    ctx.body = parseSuccessResponse('Succesfully created hall');
   }
 
   /*   async update(ctx) {
