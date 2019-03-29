@@ -62,12 +62,29 @@ export default {
 
   async hall(ctx, next) {
     const { body } = ctx.request;
-    console.log(body);
+    const rowSchema = Joi.object().keys({
+      categoryID: Joi.number()
+        .positive()
+        .required(),
+      price: Joi.number()
+        .positive()
+        .required(),
+      seats: Joi.number()
+        .positive()
+        .required(),
+      reserved: Joi.array().items(Joi.number().positive()),
+      ordered: Joi.array().items(Joi.number().positive()),
+      lastInSection: Joi.boolean()
+    });
+
     const schema = Joi.object().keys({
       title: Joi.string()
         .min(2)
         .required(),
-      cinemaID: Joi.string().required()
+      cinemaID: Joi.number()
+        .positive()
+        .required(),
+      rows: Joi.array().items(rowSchema)
     });
     await Joi.validate(body, schema, customizeJoiError);
     const { cinemaID } = body;

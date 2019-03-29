@@ -38,6 +38,4 @@ RowCategory.sync().then(() => {
   });
 });
 
-// RowCategory.hasMany(RowModel, { as: 'rows', foreignKey: 'category-id' });
-
 export default RowCategory;
