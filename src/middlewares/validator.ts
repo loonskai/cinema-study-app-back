@@ -1,13 +1,15 @@
 import Joi from 'joi';
 
 import { Context } from 'koa';
+import { Controller } from '../types/base';
 
 import userService from '../services/user';
-import ApiError from '../classes/ApiError';
+import cinemaService from '../services/cinema';
 import customizeJoiError from '../helpers/customizeJoiError';
+import ApiError from '../classes/ApiError';
 
 export default {
-  async user(ctx: Context, next: Function): Promise<void> {
+  async user(ctx, next) {
     const { body } = ctx.request;
     const schema = Joi.object().keys({
       username: Joi.string()
@@ -44,7 +46,7 @@ export default {
     await next();
   },
 
-  async cinema(ctx: Context, next: Function): Promise<void> {
+  async cinema(ctx, next) {
     const { body } = ctx.request;
     const schema = Joi.object().keys({
       title: Joi.string()
@@ -56,5 +58,23 @@ export default {
     });
     await Joi.validate(body, schema, customizeJoiError);
     await next();
+  },
+
+  async hall(ctx, next) {
+    const { body } = ctx.request;
+    console.log(body);
+    const schema = Joi.object().keys({
+      title: Joi.string()
+        .min(2)
+        .required(),
+      cinemaID: Joi.string().required()
+    });
+    await Joi.validate(body, schema, customizeJoiError);
+    const { cinemaID } = body;
+    const cinema = await cinemaService.getByID(+cinemaID);
+    if (!cinema) {
+      throw new ApiError(404, 'Cinema not found');
+    }
+    await next();
   }
-};
+} as Controller;

@@ -13,6 +13,11 @@ export default {
     return result;
   },
 
+  async getByID(id: number): Promise<CinemaType | any> {
+    const result = await Cinema.findByPk(id, { raw: true });
+    return result;
+  },
+
   async update(id: number, body: CinemaType): Promise<CinemaType | any> {
     const result = await Cinema.update(body, {
       where: { id },

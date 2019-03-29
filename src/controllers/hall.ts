@@ -10,13 +10,15 @@ export default {
     const result = await hallService.getAll();
     if (!result) throw new ApiError(500, 'Unable to load hall list');
     ctx.body = parseSuccessResponse(result);
-  }
-  /*   async create(ctx) {
+  },
+
+  async create(ctx) {
     const { body } = ctx.request;
-    const result = await cinemaService.create(body);
-    if (!result) throw new ApiError(500, 'Unable to create cinema');
-    ctx.body = parseSuccessResponse('Succesfully created cinema');
-  }, */
+    console.log(body);
+    /*     const result = await hallService.create(body);
+    if (!result) throw new ApiError(500, 'Unable to create hall');
+    ctx.body = parseSuccessResponse('Succesfully created hall'); */
+  }
 
   /*   async update(ctx) {
     const { id } = ctx.params;

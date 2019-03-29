@@ -17,6 +17,6 @@ const sequelize = new SequelizeModule({
   }
 });
 
-sequelize.sync({ force: true });
+sequelize.sync();
 
 export default sequelize;
