@@ -1,10 +1,16 @@
 import Sequilize from 'sequelize';
 
-import db from '../config/db';
+import sequelize from '../config/sequelize';
+import HallModel from './Hall';
 
-const Cinema = db.define(
+const Cinema = sequelize.define(
   'cinema',
   {
+    id: {
+      type: Sequilize.INTEGER,
+      autoIncrement: true,
+      primaryKey: true
+    },
     title: {
       type: Sequilize.STRING,
       allowNull: false
@@ -18,5 +24,7 @@ const Cinema = db.define(
     schema: 'cinemaapp'
   }
 );
+
+Cinema.hasMany(HallModel, { as: 'halls', foreignKey: 'cinema-id' });
 
 export default Cinema;

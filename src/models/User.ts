@@ -1,8 +1,8 @@
 import Sequilize from 'sequelize';
 
-import db from '../config/db';
+import sequelize from '../config/sequelize';
 
-const User = db.define(
+const User = sequelize.define(
   'user',
   {
     username: {

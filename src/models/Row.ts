@@ -1,24 +1,12 @@
 import Sequilize from 'sequelize';
 
-import db from '../config/db';
+import sequelize from '../config/sequelize';
+import HallModel from './Hall';
+import RowCategoryModel from './RowCategory';
 
-const RowCategory = db.define('row-category', {
-  title: {
-    type: Sequilize.STRING,
-    allowNull: false
-  }
-});
-
-const Row = db.define(
+const Row = sequelize.define(
   'row',
   {
-    categoryId: {
-      type: Sequilize.INTEGER,
-      references: {
-        model: RowCategory,
-        key: 'id'
-      }
-    },
     price: {
       type: Sequilize.INTEGER,
       validate: {
@@ -41,5 +29,15 @@ const Row = db.define(
     schema: 'cinemaapp'
   }
 );
+
+/* Row.belongsTo(HallModel, {
+  foreingKey: 'hall-id',
+  targetKey: 'id'
+}); */
+
+/* Row.belongsTo(RowCategoryModel, {
+  foreingKey: 'category-id',
+  targetKey: 'id'
+}); */
 
 export default Row;

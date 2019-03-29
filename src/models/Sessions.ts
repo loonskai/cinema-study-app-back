@@ -1,10 +1,10 @@
 import Sequilize from 'sequelize';
 
-import db from '../config/db';
+import sequelize from '../config/sequelize';
 import Movie from './Movie';
 import Hall from './Hall';
 
-const Session = db.define(
+const Session = sequelize.define(
   'session',
   {
     date: {

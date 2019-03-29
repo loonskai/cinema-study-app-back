@@ -1,8 +1,8 @@
 import Sequilize from 'sequelize';
 
-import db from '../config/db';
+import sequelize from '../config/sequelize';
 
-const Movie = db.define(
+const Movie = sequelize.define(
   'movie',
   {
     title: {

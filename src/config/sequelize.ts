@@ -1,9 +1,9 @@
-import Sequilize from 'sequelize';
+import Sequelize from 'sequelize';
 import { env } from '../config/env';
 
-const seq: any = Sequilize;
+const SequelizeModule: any = Sequelize;
 
-const db = new seq({
+const sequelize = new SequelizeModule({
   dialect: 'postgres',
   host: env.DB_HOST,
   database: env.DB_NAME,
@@ -17,6 +17,6 @@ const db = new seq({
   }
 });
 
-db.sync();
+sequelize.sync({ force: true });
 
-export default db;
+export default sequelize;

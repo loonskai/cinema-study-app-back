@@ -1,6 +1,6 @@
 import Sequilize, { Model } from 'sequelize';
 
-import db from '../config/db';
+import sequelize from '../config/sequelize';
 import Cinema from './Cinema';
 
 interface BonusAttributes {
@@ -11,7 +11,7 @@ interface BonusAttributes {
   updatedAt?: string;
 }
 
-const Bonus: Model<BonusAttributes> = db.define(
+const Bonus: Model<BonusAttributes> = sequelize.define(
   'bonus',
   {
     cinemaId: {
