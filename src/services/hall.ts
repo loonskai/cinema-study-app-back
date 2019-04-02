@@ -11,7 +11,6 @@ export default {
       title: body.title,
       'cinema-id': body['cinema-id']
     };
-
     const transaction = await sequilize.transaction();
     try {
       const hall = await Hall.create(hallBody, {
@@ -34,12 +33,7 @@ export default {
 
   async getAll(): Promise<HallType[]> {
     const result = await Hall.findAll({
-      include: [
-        {
-          model: Row,
-          as: 'rows'
-        }
-      ],
+      include: [{ model: Row, as: 'rows' }],
       order: [['id', 'DESC']]
     });
     return result;

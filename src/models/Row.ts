@@ -21,8 +21,8 @@ const Row = sequelize.define(
         min: 0
       }
     },
-    reserved: Sequilize.ARRAY(Sequilize.INTEGER),
-    ordered: Sequilize.ARRAY(Sequilize.INTEGER),
+    /*     reserved: Sequilize.ARRAY(Sequilize.INTEGER),
+    ordered: Sequilize.ARRAY(Sequilize.INTEGER), */
     lastInSection: Sequilize.BOOLEAN
   },
   {

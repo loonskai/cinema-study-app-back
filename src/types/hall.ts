@@ -15,3 +15,10 @@ export interface RowType {
   ordered: number[];
   lastInSection: boolean;
 }
+
+export interface RowCategoryType {
+  id?: number;
+  title: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
