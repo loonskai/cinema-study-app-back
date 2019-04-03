@@ -7,14 +7,14 @@ import RowCategoryModel from './RowCategory';
 const Row = sequelize.define(
   'row',
   {
-    price: {
+    /*     price: {
       type: Sequilize.INTEGER,
       validate: {
         isNumeric: true,
         min: 0
       }
-    },
-    seats: {
+    }, */
+    quantity: {
       type: Sequilize.INTEGER,
       validate: {
         isNumeric: true,

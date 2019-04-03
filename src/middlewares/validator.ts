@@ -62,18 +62,15 @@ export default {
 
   async hall(ctx, next) {
     const { body } = ctx.request;
+    console.log(body);
+
     const rowSchema = Joi.object().keys({
-      categoryID: Joi.number()
+      category: Joi.number()
         .positive()
         .required(),
-      price: Joi.number()
+      quantity: Joi.number()
         .positive()
         .required(),
-      seats: Joi.number()
-        .positive()
-        .required(),
-      reserved: Joi.array().items(Joi.number().positive()),
-      ordered: Joi.array().items(Joi.number().positive()),
       lastInSection: Joi.boolean()
     });
 

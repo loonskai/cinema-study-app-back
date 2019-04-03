@@ -8,7 +8,7 @@ export interface HallType {
 }
 
 export interface RowType {
-  categoryID: number;
+  category: number;
   price: number;
   seats: number;
   reserved: number[];

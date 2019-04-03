@@ -19,7 +19,7 @@ export default {
       });
       const rowsArrBody = body.rows.map(row => ({
         ...row,
-        'category-id': row.categoryID,
+        'category-id': row.category,
         'hall-id': hall.id
       }));
       await Row.bulkCreate(rowsArrBody, { transaction, validate: true });
