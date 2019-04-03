@@ -34,7 +34,7 @@ export default {
   async getAll(): Promise<HallType[]> {
     const result = await Hall.findAll({
       include: [{ model: Row, as: 'rows' }],
-      order: [['id', 'DESC']]
+      order: [['id', 'ASC']]
     });
     return result;
   }

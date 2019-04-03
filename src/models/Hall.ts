@@ -22,6 +22,10 @@ const Hall = sequelize.define(
   }
 );
 
-Hall.hasMany(RowModel, { as: 'rows', foreignKey: 'hall-id' });
+Hall.hasMany(RowModel, {
+  as: 'rows',
+  foreignKey: 'hall-id',
+  onDelete: 'cascade'
+});
 
 export default Hall;

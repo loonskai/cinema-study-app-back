@@ -25,6 +25,10 @@ const Cinema = sequelize.define(
   }
 );
 
-Cinema.hasMany(HallModel, { as: 'halls', foreignKey: 'cinema-id' });
+Cinema.hasMany(HallModel, {
+  as: 'halls',
+  foreignKey: 'cinema-id',
+  onDelete: 'cascade'
+});
 
 export default Cinema;
