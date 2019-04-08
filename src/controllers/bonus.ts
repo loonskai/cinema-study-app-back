@@ -17,16 +17,16 @@ export default {
     const result = await bonusService.getAll();
     if (!result) throw new ApiError(500, 'Unable to load bonuses list');
     ctx.body = parseSuccessResponse(result);
-  }
+  },
 
-  /*   async update(ctx) {
+  async update(ctx) {
     const { id } = ctx.params;
     const { body } = ctx.request;
-    if (!id) throw new ApiError(404, 'Cinema ID not defined');
-    const [result] = await cinemaService.update(+id, body);
-    if (!result) throw new ApiError(500, 'Unable to update cinema');
+    if (!id) throw new ApiError(404, 'Bonus ID not defined');
+    const result = await bonusService.update(+id, body);
+    if (!result) throw new ApiError(500, 'Unable to update bonus');
     ctx.body = parseSuccessResponse(result);
-  }, */
+  }
 
   /*   async delete(ctx) {
     const { id } = ctx.params;
