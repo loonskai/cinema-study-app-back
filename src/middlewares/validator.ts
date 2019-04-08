@@ -4,8 +4,10 @@ import { Controller } from '../types/base';
 
 import userService from '../services/user';
 import cinemaService from '../services/cinema';
+import movieService from '../services/movie';
 import customizeJoiError from '../helpers/customizeJoiError';
 import ApiError from '../classes/ApiError';
+import { MovieType } from '../types/movie';
 
 const rowSchema = Joi.object().keys({
   category: Joi.number()
@@ -18,6 +20,7 @@ const rowSchema = Joi.object().keys({
 });
 
 const movieSchema = Joi.object().keys({
+  id: Joi.number().positive(),
   title: Joi.string()
     .required()
     .options({
@@ -121,6 +124,11 @@ export default {
     const { body } = ctx.request;
     const schema = Joi.array().items(movieSchema);
     await Joi.validate(body, schema, customizeJoiError);
+    const ids = body.map((movie: MovieType) => movie.id);
+    const movies = await movieService.getManyByIDs(ids);
+    if (!!movies.length) {
+      throw new ApiError(500, 'Some movie ID already in use');
+    }
     await next();
   }
 } as Controller;
