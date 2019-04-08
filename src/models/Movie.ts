@@ -9,11 +9,11 @@ const Movie = sequelize.define(
       type: Sequilize.STRING,
       allowNull: false
     },
-    description: {
+    overview: {
       type: Sequilize.STRING,
       allowNull: false
     },
-    picture: {
+    poster: {
       type: Sequilize.STRING,
       allowNull: false,
       validate: {
