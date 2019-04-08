@@ -7,13 +7,19 @@ import parseSuccessResponse from '../helpers/parseSuccessResponse';
 
 export default {
   async create(ctx) {
-    /*  
-    
-    if (!result) throw new ApiError(500, 'Unable to create cinema');
-    ctx.body = parseSuccessResponse('Succesfully created cinema'); */
     const { body } = ctx.request;
-    const result = await movieService.createMany(body);
-    ctx.body = 'create movie';
+    let result;
+    if (body instanceof Array) {
+      result = await movieService.createMany(body);
+      if (!result || !result.length) {
+        throw new ApiError(500, 'Unable to create movies');
+      }
+    } else {
+      result = await movieService.create(body);
+      if (!result) throw new ApiError(500, 'Unable to create movie');
+    }
+    console.log(result);
+    ctx.body = parseSuccessResponse(result);
   },
 
   async getAll(ctx) {

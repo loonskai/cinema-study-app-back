@@ -3,15 +3,19 @@ import Movie from '../models/Movie';
 import { MovieType } from '../types/movie';
 
 export default {
-  /*   async create(body: CinemaType): Promise<boolean> {
-    await Cinema.create(body);
-    return true;
-  }, */
+  async create(body: MovieType): Promise<MovieType> {
+    const result = await Movie.create(body, {
+      returning: true
+    });
+    return result;
+  },
+
   async createMany(body: MovieType[]): Promise<any> {
     const result = await Movie.bulkCreate(body, {
-      ignoreDuplicates: true
+      ignoreDuplicates: true,
+      returning: true
     });
-    console.log(result);
+    return result;
   },
 
   async getAll(): Promise<MovieType[]> {
