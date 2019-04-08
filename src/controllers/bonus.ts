@@ -26,13 +26,13 @@ export default {
     const result = await bonusService.update(+id, body);
     if (!result) throw new ApiError(500, 'Unable to update bonus');
     ctx.body = parseSuccessResponse(result);
-  }
+  },
 
-  /*   async delete(ctx) {
+  async delete(ctx) {
     const { id } = ctx.params;
-    if (!id) throw new ApiError(404, 'Cinema ID not defined');
-    const result = await cinemaService.delete(+id);
-    if (!result) throw new ApiError(500, 'Unable to delete cinema');
-    ctx.body = parseSuccessResponse('Succesfully delete cinema');
-  } */
+    if (!id) throw new ApiError(404, 'Bonus ID not defined');
+    const result = await bonusService.delete(+id);
+    if (!result) throw new ApiError(500, 'Unable to delete bonus');
+    ctx.body = parseSuccessResponse('Succesfully delete bonus');
+  }
 } as Controller;

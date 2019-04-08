@@ -18,11 +18,6 @@ export default {
     return result;
   },
 
-  /*   async getByID(id: number): Promise<CinemaType | any> {
-    const result = await Cinema.findByPk(id, { raw: true });
-    return result;
-  }, */
-
   async update(id: number, body: BonusType): Promise<BonusType> {
     const result = await Bonus.update(body, {
       where: { id },
@@ -30,10 +25,10 @@ export default {
       raw: true
     });
     return !!result[0] && result[1];
-  }
+  },
 
-  /*   async delete(id: number): Promise<any> {
-    const result = await Cinema.destroy({ where: { id } });
+  async delete(id: number): Promise<any> {
+    const result = await Bonus.destroy({ where: { id } });
     return !!result;
-  } */
+  }
 };
