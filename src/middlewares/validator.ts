@@ -30,7 +30,7 @@ const movieSchema = Joi.object().keys({
     }),
   overview: Joi.string()
     .min(2)
-    .max(300)
+    .max(1000)
     .required()
     .options({
       language: {
