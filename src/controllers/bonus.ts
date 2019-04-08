@@ -6,12 +6,12 @@ import ApiError from '../classes/ApiError';
 import parseSuccessResponse from '../helpers/parseSuccessResponse';
 
 export default {
-  /*   async create(ctx) {
+  async create(ctx) {
     const { body } = ctx.request;
-    const result = await cinemaService.create(body);
-    if (!result) throw new ApiError(500, 'Unable to create cinema');
-    ctx.body = parseSuccessResponse('Succesfully created cinema');
-  }, */
+    const result = await bonusService.create(body);
+    if (!result) throw new ApiError(500, 'Unable to create bonus');
+    ctx.body = parseSuccessResponse('Succesfully created bonus');
+  },
 
   async getAll(ctx) {
     const result = await bonusService.getAll();

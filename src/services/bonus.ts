@@ -3,10 +3,15 @@ import Bonus from '../models/Bonus';
 import { BonusType } from '../types/bonus';
 
 export default {
-  /*   async create(body: CinemaType): Promise<boolean> {
-    await Cinema.create(body);
+  async create(body: BonusType): Promise<boolean> {
+    const bonusBody = {
+      title: body.title,
+      price: body.price,
+      'cinema-id': body.cinemaID
+    };
+    await Bonus.create(bonusBody);
     return true;
-  }, */
+  },
 
   async getAll(): Promise<BonusType[]> {
     const result = await Bonus.findAll({ raw: true, order: [['id', 'DESC']] });
