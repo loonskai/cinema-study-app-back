@@ -30,7 +30,7 @@ const movieSchema = Joi.object().keys({
     }),
   overview: Joi.string()
     .min(2)
-    .max(300)
+    .max(1000)
     .required()
     .options({
       language: {
@@ -120,7 +120,13 @@ export default {
     await next();
   },
 
-  async movies(ctx, next) {
+  async movie(ctx, next) {
+    const { body } = ctx.request;
+    await Joi.validate(body, movieSchema, customizeJoiError);
+    await next();
+  },
+
+  async moviesMany(ctx, next) {
     const { body } = ctx.request;
     const schema = Joi.array().items(movieSchema);
     await Joi.validate(body, schema, customizeJoiError);

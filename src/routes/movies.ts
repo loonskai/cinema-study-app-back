@@ -7,8 +7,8 @@ import validator from '../middlewares/validator';
 const router = new Router();
 
 router.get('/', movieController.getAll);
-router.post('/', validator.movies, movieController.create);
-// router.patch('/:id', validator.cinema, cinemaController.update);
+router.post('/', validator.moviesMany, movieController.create);
+router.patch('/:id', validator.movie, movieController.update);
 // router.delete('/:id', cinemaController.delete);
 
 export default router;

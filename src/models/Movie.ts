@@ -15,7 +15,7 @@ const Movie = sequelize.define(
       allowNull: false
     },
     overview: {
-      type: Sequilize.STRING,
+      type: Sequilize.STRING(1000),
       allowNull: false
     },
     poster: {
