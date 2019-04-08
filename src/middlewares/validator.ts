@@ -1,12 +1,49 @@
 import Joi from 'joi';
 
-import { Context } from 'koa';
 import { Controller } from '../types/base';
 
 import userService from '../services/user';
 import cinemaService from '../services/cinema';
 import customizeJoiError from '../helpers/customizeJoiError';
 import ApiError from '../classes/ApiError';
+
+const rowSchema = Joi.object().keys({
+  category: Joi.number()
+    .positive()
+    .required(),
+  quantity: Joi.number()
+    .positive()
+    .required(),
+  lastInSection: Joi.boolean()
+});
+
+const movieSchema = Joi.object().keys({
+  title: Joi.string()
+    .required()
+    .options({
+      language: {
+        any: 'is required'
+      }
+    }),
+  overview: Joi.string()
+    .min(2)
+    .max(300)
+    .required()
+    .options({
+      language: {
+        any: {
+          empty: 'is required'
+        },
+        string: {
+          min: 'should be at least 2 symbols length',
+          max: 'should be max 20 symbols'
+        }
+      }
+    }),
+  poster: Joi.string()
+    .required()
+    .uri()
+});
 
 export default {
   async user(ctx, next) {
@@ -62,18 +99,6 @@ export default {
 
   async hall(ctx, next) {
     const { body } = ctx.request;
-    console.log(body);
-
-    const rowSchema = Joi.object().keys({
-      category: Joi.number()
-        .positive()
-        .required(),
-      quantity: Joi.number()
-        .positive()
-        .required(),
-      lastInSection: Joi.boolean()
-    });
-
     const schema = Joi.object().keys({
       title: Joi.string()
         .min(2)
@@ -89,6 +114,13 @@ export default {
     if (!cinema) {
       throw new ApiError(404, 'Cinema not found');
     }
+    await next();
+  },
+
+  async movies(ctx, next) {
+    const { body } = ctx.request;
+    const schema = Joi.array().items(movieSchema);
+    await Joi.validate(body, schema, customizeJoiError);
     await next();
   }
 } as Controller;
