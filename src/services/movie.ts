@@ -43,10 +43,10 @@ export default {
       raw: true
     });
     return !!result[0] && result[1];
-  }
+  },
 
-  /*   async delete(id: number): Promise<any> {
-    const result = await Cinema.destroy({ where: { id } });
+  async delete(id: number): Promise<boolean> {
+    const result = await Movie.destroy({ where: { id } });
     return !!result;
-  } */
+  }
 };
