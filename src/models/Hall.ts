@@ -1,7 +1,6 @@
 import Sequilize from 'sequelize';
 
 import sequelize from '../config/sequelize';
-import CinemaModel from './Cinema';
 import RowModel from './Row';
 
 const Hall = sequelize.define(

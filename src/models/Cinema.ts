@@ -2,6 +2,7 @@ import Sequilize from 'sequelize';
 
 import sequelize from '../config/sequelize';
 import HallModel from './Hall';
+import BonusModel from './Bonus';
 
 const Cinema = sequelize.define(
   'cinema',
@@ -27,6 +28,12 @@ const Cinema = sequelize.define(
 
 Cinema.hasMany(HallModel, {
   as: 'halls',
+  foreignKey: 'cinema-id',
+  onDelete: 'cascade'
+});
+
+Cinema.hasMany(BonusModel, {
+  as: 'bonuses',
   foreignKey: 'cinema-id',
   onDelete: 'cascade'
 });
