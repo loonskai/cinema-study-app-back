@@ -14,7 +14,8 @@ export default {
   },
 
   async getAll(ctx) {
-    const result = await cinemaService.getAll();
+    const queryParams = ctx.request.query;
+    const result = await cinemaService.getAll(queryParams);
     if (!result) throw new ApiError(500, 'Unable to load cinema list');
     ctx.body = parseSuccessResponse(result);
   },
