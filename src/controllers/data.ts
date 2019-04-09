@@ -10,5 +10,11 @@ export default {
     const result = await dataService.getRowCategories();
     if (!result) throw new ApiError(500, 'Unable to load row categories list');
     ctx.body = parseSuccessResponse(result);
+  },
+
+  async getCities(ctx) {
+    const result = await dataService.getCities();
+    if (!result) throw new ApiError(500, 'Unable to load cities list');
+    ctx.body = parseSuccessResponse(result);
   }
 } as Controller;
