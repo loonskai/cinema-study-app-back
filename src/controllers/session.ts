@@ -11,13 +11,13 @@ export default {
     const result = await sessionService.create(body);
     if (!result) throw new ApiError(500, 'Unable to create session');
     ctx.body = parseSuccessResponse('Succesfully created session');
-  }
+  },
 
-  /*   async getAll(ctx) {
-    const result = await bonusService.getAll();
-    if (!result) throw new ApiError(500, 'Unable to load bonuses list');
+  async getAll(ctx) {
+    const result = await sessionService.getAll();
+    if (!result) throw new ApiError(500, 'Unable to load sessions list');
     ctx.body = parseSuccessResponse(result);
-  }, */
+  }
 
   /*   async update(ctx) {
     const { id } = ctx.params;

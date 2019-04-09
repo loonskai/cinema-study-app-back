@@ -11,11 +11,14 @@ export default {
     ).format();
     await Session.create({ ...body, date: combinedDate });
     return true;
-  }
-  /*   async getAll(): Promise<BonusType[]> {
-    const result = await Bonus.findAll({ raw: true, order: [['id', 'DESC']] });
+  },
+  async getAll(): Promise<SessionType[]> {
+    const result = await Session.findAll({
+      raw: true,
+      order: [['id', 'DESC']]
+    });
     return result;
-  }, */
+  }
   /*   async update(id: number, body: BonusType): Promise<BonusType> {
     const result = await Bonus.update(body, {
       where: { id },
