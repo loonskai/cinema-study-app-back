@@ -2,7 +2,6 @@ import Sequilize from 'sequelize';
 
 import sequelize from '../config/sequelize';
 import RowModel from './Row';
-import SessionModel from './Session';
 
 const Hall = sequelize.define(
   'hall',
@@ -24,12 +23,6 @@ const Hall = sequelize.define(
 
 Hall.hasMany(RowModel, {
   as: 'rows',
-  foreignKey: 'hall-id',
-  onDelete: 'cascade'
-});
-
-Hall.hasMany(SessionModel, {
-  as: 'sessions',
   foreignKey: 'hall-id',
   onDelete: 'cascade'
 });

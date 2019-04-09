@@ -26,6 +26,11 @@ const Cinema = sequelize.define(
   }
 );
 
+HallModel.belongsTo(Cinema, {
+  targetkey: 'id',
+  foreignKey: 'cinema-id'
+});
+
 Cinema.hasMany(HallModel, {
   as: 'halls',
   foreignKey: 'cinema-id',

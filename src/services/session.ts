@@ -1,6 +1,9 @@
 import moment from 'moment';
 
 import Session from '../models/Session';
+import Movie from '../models/Movie';
+import Hall from '../models/Hall';
+import Cinema from '../models/Cinema';
 import { SessionType } from '../types/session';
 
 export default {
@@ -14,8 +17,20 @@ export default {
   },
   async getAll(): Promise<SessionType[]> {
     const result = await Session.findAll({
-      raw: true,
-      order: [['id', 'DESC']]
+      order: [['id', 'DESC']],
+      include: [
+        { model: Movie, as: 'movie' },
+        {
+          model: Hall,
+          as: 'hall',
+          include: [
+            {
+              model: Cinema,
+              as: 'cinema'
+            }
+          ]
+        }
+      ]
     });
     return result;
   }
