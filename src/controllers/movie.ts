@@ -28,6 +28,14 @@ export default {
     ctx.body = parseSuccessResponse(result);
   },
 
+  async getByID(ctx) {
+    const { id } = ctx.params;
+    if (!id) throw new ApiError(404, 'Movie ID not defined');
+    const result = await movieService.getByID(+id);
+    if (!result) throw new ApiError(500, 'Movie not found');
+    ctx.body = parseSuccessResponse(result);
+  },
+
   async update(ctx) {
     const { id } = ctx.params;
     const { body } = ctx.request;
