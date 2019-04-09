@@ -2,8 +2,11 @@ import sequilize from '../config/sequelize';
 
 import Hall from '../models/Hall';
 import Row from '../models/Row';
+import { HallType } from '../types/hall';
 
-import { HallType, RowType } from '../types/hall';
+interface QueryParamsType {
+  'cinema-id': number;
+}
 
 export default {
   async create(body: HallType): Promise<boolean> {
@@ -31,8 +34,9 @@ export default {
     }
   },
 
-  async getAll(): Promise<HallType[]> {
+  async getAll(queryParams?: QueryParamsType): Promise<HallType[]> {
     const result = await Hall.findAll({
+      where: queryParams,
       include: [{ model: Row, as: 'rows' }],
       order: [['id', 'ASC']]
     });

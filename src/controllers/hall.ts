@@ -7,7 +7,8 @@ import parseSuccessResponse from '../helpers/parseSuccessResponse';
 
 export default {
   async getAll(ctx) {
-    const result = await hallService.getAll();
+    const queryParams = ctx.request.query;
+    const result = await hallService.getAll(queryParams);
     if (!result) throw new ApiError(500, 'Unable to load hall list');
     ctx.body = parseSuccessResponse(result);
   },
