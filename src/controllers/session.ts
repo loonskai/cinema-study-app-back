@@ -5,6 +5,12 @@ import { Controller } from '../types/base';
 import ApiError from '../classes/ApiError';
 import parseSuccessResponse from '../helpers/parseSuccessResponse';
 
+interface QueryParams {
+  hall?: string | number;
+  date?: string;
+  time?: string;
+}
+
 export default {
   async create(ctx) {
     const { body } = ctx.request;
@@ -14,7 +20,8 @@ export default {
   },
 
   async getAll(ctx) {
-    const result = await sessionService.getAll();
+    const queryParams: QueryParams = ctx.request.query;
+    const result = await sessionService.getAll(queryParams);
     if (!result) throw new ApiError(500, 'Unable to load sessions list');
     ctx.body = parseSuccessResponse(result);
   }

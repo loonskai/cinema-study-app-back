@@ -15,8 +15,9 @@ export default {
     await Session.create({ ...body, date: combinedDate });
     return true;
   },
-  async getAll(): Promise<SessionType[]> {
+  async getAll(params: any): Promise<SessionType[]> {
     const result = await Session.findAll({
+      where: params,
       order: [['id', 'DESC']],
       include: [
         { model: Movie, as: 'movie' },

@@ -18,7 +18,6 @@ export default {
       result = await movieService.create(body);
       if (!result) throw new ApiError(500, 'Unable to create movie');
     }
-    console.log(result);
     ctx.body = parseSuccessResponse(result);
   },
 
