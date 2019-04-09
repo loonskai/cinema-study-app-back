@@ -2,6 +2,10 @@ import Movie from '../models/Movie';
 
 import { MovieType } from '../types/movie';
 
+export interface FindOptionsType {
+  title: string;
+}
+
 export default {
   async create(body: MovieType): Promise<MovieType> {
     const result = await Movie.create(body, {
@@ -23,8 +27,16 @@ export default {
     return result;
   },
 
-  async getByID(id: number): Promise<MovieType | any> {
+  async getByID(id: number): Promise<MovieType> {
     const result = await Movie.findByPk(id, { raw: true });
+    return result;
+  },
+
+  async getOne(options: FindOptionsType): Promise<MovieType> {
+    const result = await Movie.findOne({
+      where: options,
+      raw: true
+    });
     return result;
   },
 

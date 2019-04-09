@@ -1,6 +1,7 @@
 import Sequilize from 'sequelize';
 
 import sequelize from '../config/sequelize';
+import SessionModel from './Session';
 
 const Movie = sequelize.define(
   'movie',
@@ -30,5 +31,11 @@ const Movie = sequelize.define(
     schema: 'cinemaapp'
   }
 );
+
+Movie.hasMany(SessionModel, {
+  as: 'sessions',
+  foreignKey: 'movie-id',
+  onDelete: 'cascade'
+});
 
 export default Movie;

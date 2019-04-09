@@ -5,9 +5,12 @@ import { Controller } from '../types/base';
 import userService from '../services/user';
 import cinemaService from '../services/cinema';
 import movieService from '../services/movie';
+import hallService from '../services/hall';
 import customizeJoiError from '../helpers/customizeJoiError';
 import ApiError from '../classes/ApiError';
 import { MovieType } from '../types/movie';
+import hall from '../controllers/hall';
+import { HallType } from '../types/hall';
 
 const rowSchema = Joi.object().keys({
   category: Joi.number()
@@ -157,6 +160,33 @@ export default {
     if (!cinema) {
       throw new ApiError(404, 'Cinema not found');
     }
+    await next();
+  },
+
+  async session(ctx, next) {
+    const { body } = ctx.request;
+    const schema = Joi.object().keys({
+      date: Joi.string()
+        .isoDate()
+        .required(),
+      time: Joi.string().required(),
+      movie: Joi.string().required(),
+      hall: Joi.number()
+        .positive()
+        .required()
+    });
+    await Joi.validate(body, schema, customizeJoiError);
+    const { movie: title } = body;
+    const movie = await movieService.getOne({ title });
+    if (!movie) {
+      throw new ApiError(404, 'Movie not found');
+    }
+    body['movie-id'] = movie.id;
+    const hall: HallType = await hallService.getByID(body.hall);
+    if (!hall) {
+      throw new ApiError(404, 'Hall not found');
+    }
+    body['hall-id'] = hall.id;
     await next();
   }
 } as Controller;

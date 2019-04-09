@@ -6,6 +6,7 @@ import hall from './hall';
 import data from './data';
 import movies from './movies';
 import bonuses from './bonuses';
+import sessions from './sessions';
 
 const router = new Router();
 
@@ -15,5 +16,6 @@ router.use('/hall', hall.routes());
 router.use('/data', data.routes());
 router.use('/movies', movies.routes());
 router.use('/bonuses', bonuses.routes());
+router.use('/sessions', sessions.routes());
 
 export default router;

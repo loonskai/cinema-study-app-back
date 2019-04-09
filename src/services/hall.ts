@@ -41,6 +41,11 @@ export default {
       order: [['id', 'ASC']]
     });
     return result;
+  },
+
+  async getByID(id: number): Promise<HallType> {
+    const result = await Hall.findByPk(id, { raw: true });
+    return result;
   }
 
   /*   async update(id: number, body: CinemaType): Promise<CinemaType | any> {
