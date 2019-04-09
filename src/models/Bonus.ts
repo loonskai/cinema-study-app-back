@@ -1,25 +1,14 @@
-import Sequilize, { Model } from 'sequelize';
+import Sequilize from 'sequelize';
 
 import sequelize from '../config/sequelize';
-import Cinema from './Cinema';
 
-interface BonusAttributes {
-  cinemaId: number;
-  title: string;
-  price: number;
-  createdAt?: string;
-  updatedAt?: string;
-}
-
-const Bonus: Model<BonusAttributes> = sequelize.define(
+const Bonus = sequelize.define(
   'bonus',
   {
-    cinemaId: {
+    id: {
       type: Sequilize.INTEGER,
-      references: {
-        model: Cinema,
-        key: 'id'
-      }
+      autoIncrement: true,
+      primaryKey: true
     },
     title: {
       type: Sequilize.STRING,

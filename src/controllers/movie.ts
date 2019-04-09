@@ -24,24 +24,24 @@ export default {
 
   async getAll(ctx) {
     const result = await movieService.getAll();
-    if (!result) throw new ApiError(500, 'Unable to load cinema list');
+    if (!result) throw new ApiError(500, 'Unable to load movies list');
     ctx.body = parseSuccessResponse(result);
-  }
+  },
 
-  /*   async update(ctx) {
+  async update(ctx) {
     const { id } = ctx.params;
     const { body } = ctx.request;
-    if (!id) throw new ApiError(404, 'Cinema ID not defined');
-    const [result] = await cinemaService.update(+id, body);
-    if (!result) throw new ApiError(500, 'Unable to update cinema');
+    if (!id) throw new ApiError(404, 'Movie ID not defined');
+    const result = await movieService.update(+id, body);
+    if (!result) throw new ApiError(500, 'Unable to update movie');
     ctx.body = parseSuccessResponse(result);
-  }, */
+  },
 
-  /*   async delete(ctx) {
+  async delete(ctx) {
     const { id } = ctx.params;
-    if (!id) throw new ApiError(404, 'Cinema ID not defined');
-    const result = await cinemaService.delete(+id);
-    if (!result) throw new ApiError(500, 'Unable to delete cinema');
-    ctx.body = parseSuccessResponse('Succesfully delete cinema');
-  } */
+    if (!id) throw new ApiError(404, 'Movie ID not defined');
+    const result = await movieService.delete(+id);
+    if (!result) throw new ApiError(500, 'Unable to delete movie');
+    ctx.body = parseSuccessResponse('Succesfully delete movie');
+  }
 } as Controller;

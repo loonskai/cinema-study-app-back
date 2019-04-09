@@ -120,7 +120,13 @@ export default {
     await next();
   },
 
-  async movies(ctx, next) {
+  async movie(ctx, next) {
+    const { body } = ctx.request;
+    await Joi.validate(body, movieSchema, customizeJoiError);
+    await next();
+  },
+
+  async moviesMany(ctx, next) {
     const { body } = ctx.request;
     const schema = Joi.array().items(movieSchema);
     await Joi.validate(body, schema, customizeJoiError);
@@ -128,6 +134,28 @@ export default {
     const movies = await movieService.getManyByIDs(ids);
     if (!!movies.length) {
       throw new ApiError(500, 'Some movie ID already in use');
+    }
+    await next();
+  },
+
+  async bonus(ctx, next) {
+    const { body } = ctx.request;
+    const schema = Joi.object().keys({
+      title: Joi.string()
+        .min(2)
+        .required(),
+      cinemaID: Joi.number()
+        .positive()
+        .required(),
+      price: Joi.number()
+        .positive()
+        .required()
+    });
+    await Joi.validate(body, schema, customizeJoiError);
+    const { cinemaID } = body;
+    const cinema = await cinemaService.getByID(+cinemaID);
+    if (!cinema) {
+      throw new ApiError(404, 'Cinema not found');
     }
     await next();
   }

@@ -28,25 +28,25 @@ export default {
     return result;
   },
 
-  async getManyByIDs(ids: number[]): Promise<MovieType[] | any> {
+  async getManyByIDs(ids: number[]): Promise<MovieType[]> {
     const result = await Movie.findAll({
       where: { id: ids },
       raw: true
     });
     return result;
-  }
+  },
 
-  /*   async update(id: number, body: CinemaType): Promise<CinemaType | any> {
-    const result = await Cinema.update(body, {
+  async update(id: number, body: MovieType): Promise<MovieType> {
+    const result = await Movie.update(body, {
       where: { id },
       returning: true,
       raw: true
     });
     return !!result[0] && result[1];
-  }, */
+  },
 
-  /*   async delete(id: number): Promise<any> {
-    const result = await Cinema.destroy({ where: { id } });
+  async delete(id: number): Promise<boolean> {
+    const result = await Movie.destroy({ where: { id } });
     return !!result;
-  } */
+  }
 };
