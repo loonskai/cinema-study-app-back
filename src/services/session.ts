@@ -18,7 +18,6 @@ export default {
   },
 
   async getAll(params: QueryParams): Promise<SessionType[]> {
-    console.log(params);
     const result = await Session.findAll({
       where: params,
       order: [['id', 'DESC']],

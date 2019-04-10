@@ -23,7 +23,6 @@ export default {
       ctx.request.query
     );
     const result = await sessionService.getAll(queryParams);
-    console.log(result);
     if (!result) throw new ApiError(500, 'Unable to load sessions list');
     ctx.body = parseSuccessResponse(result);
   },
