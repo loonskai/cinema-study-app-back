@@ -1,14 +1,13 @@
 import sessionService from '../services/session';
-
 import { Controller } from '../types/base';
-
 import ApiError from '../classes/ApiError';
 import parseSuccessResponse from '../helpers/parseSuccessResponse';
+import sanitizeSessionQueryParams from '../helpers/sanitizeSessionQueryParams';
 
-interface QueryParams {
-  hall?: string | number;
-  date?: string;
-  time?: string;
+export interface QueryParams {
+  'hall-id'?: string | number;
+  'movie-id'?: string;
+  date?: any;
 }
 
 export default {
@@ -20,7 +19,9 @@ export default {
   },
 
   async getAll(ctx) {
-    const queryParams: QueryParams = ctx.request.query;
+    const queryParams: QueryParams = sanitizeSessionQueryParams(
+      ctx.request.query
+    );
     const result = await sessionService.getAll(queryParams);
     if (!result) throw new ApiError(500, 'Unable to load sessions list');
     ctx.body = parseSuccessResponse(result);

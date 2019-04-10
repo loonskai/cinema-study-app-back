@@ -5,6 +5,7 @@ import Movie from '../models/Movie';
 import Hall from '../models/Hall';
 import Cinema from '../models/Cinema';
 import { SessionType } from '../types/session';
+import { QueryParams } from '../controllers/session';
 
 export default {
   async create(body: SessionType): Promise<boolean | any> {
@@ -16,7 +17,7 @@ export default {
     return true;
   },
 
-  async getAll(params: any): Promise<SessionType[]> {
+  async getAll(params: QueryParams): Promise<SessionType[]> {
     const result = await Session.findAll({
       where: params,
       order: [['id', 'DESC']],
@@ -34,6 +35,7 @@ export default {
         }
       ]
     });
+    console.log(result);
     return result;
   },
 
