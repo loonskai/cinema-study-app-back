@@ -13,6 +13,14 @@ export default {
     ctx.body = parseSuccessResponse(result);
   },
 
+  async getByID(ctx) {
+    const { id } = ctx.params;
+    if (!id) throw new ApiError(404, 'Hall ID not defined');
+    const result = await hallService.getByID(+id);
+    if (!result) throw new ApiError(500, 'Hall not found');
+    ctx.body = parseSuccessResponse(result);
+  },
+
   async create(ctx) {
     const { body } = ctx.request;
     body['cinema-id'] = parseInt(body.cinemaID, 10);
@@ -20,20 +28,4 @@ export default {
     if (!result) throw new ApiError(500, 'Unable to create hall');
     ctx.body = parseSuccessResponse('Succesfully created hall');
   }
-
-  /*   async update(ctx) {
-    const { id } = ctx.params;
-    const { body } = ctx.request;
-    if (!id) throw new ApiError(404, 'Cinema ID not defined');
-    const [result] = await cinemaService.update(+id, body);
-    if (!result) throw new ApiError(500, 'Unable to update cinema');
-    ctx.body = parseSuccessResponse(result);
-  }, */
-  /*   async delete(ctx) {
-    const { id } = ctx.params;
-    if (!id) throw new ApiError(404, 'Cinema ID not defined');
-    const result = await cinemaService.delete(+id);
-    if (!result) throw new ApiError(500, 'Unable to delete cinema');
-    ctx.body = parseSuccessResponse('Succesfully delete cinema');
-  } */
 } as Controller;

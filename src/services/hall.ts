@@ -44,20 +44,9 @@ export default {
   },
 
   async getByID(id: number): Promise<HallType> {
-    const result = await Hall.findByPk(id, { raw: true });
+    const result = await Hall.findByPk(id, {
+      include: [{ model: Row, as: 'rows' }]
+    });
     return result;
   }
-
-  /*   async update(id: number, body: CinemaType): Promise<CinemaType | any> {
-    const result = await Cinema.update(body, {
-      where: { id },
-      returning: true,
-      raw: true
-    });
-    return !!result[0] && result[1];
-  }, */
-  /*   async delete(id: number): Promise<any> {
-    const result = await Cinema.destroy({ where: { id } });
-    return !!result;
-  } */
 };

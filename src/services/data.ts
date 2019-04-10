@@ -1,15 +1,26 @@
-import sequilize from '../config/sequelize';
-
-import Hall from '../models/Hall';
-import Row from '../models/Row';
 import RowCategory from '../models/RowCategory';
 import Cinema from '../models/Cinema';
+import hallService from '../services/hall';
 
 import { RowCategoryType } from '../types/hall';
 
+interface QueryParams {
+  hallID?: number;
+}
+
 export default {
-  async getRowCategories(): Promise<RowCategoryType[]> {
-    const result = await RowCategory.findAll({ raw: true });
+  async getRowCategories(params?: QueryParams): Promise<RowCategoryType[]> {
+    const result: RowCategoryType[] = await RowCategory.findAll({ raw: true });
+    if (params && params.hallID) {
+      const hall = await hallService.getByID(params.hallID);
+      const { rows } = hall;
+      const hallRowsCategoriesIDs = Array.from(
+        new Set(rows.map(row => row['category-id']))
+      );
+      return result.filter(category =>
+        hallRowsCategoriesIDs.includes(category.id)
+      );
+    }
     return result;
   },
 
