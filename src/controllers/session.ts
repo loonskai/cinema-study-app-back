@@ -24,22 +24,13 @@ export default {
     const result = await sessionService.getAll(queryParams);
     if (!result) throw new ApiError(500, 'Unable to load sessions list');
     ctx.body = parseSuccessResponse(result);
+  },
+
+  async delete(ctx) {
+    const { id } = ctx.params;
+    if (!id) throw new ApiError(404, 'Session ID not defined');
+    const result = await sessionService.delete(+id);
+    if (!result) throw new ApiError(500, 'Unable to delete session');
+    ctx.body = parseSuccessResponse('Succesfully delete session');
   }
-
-  /*   async update(ctx) {
-    const { id } = ctx.params;
-    const { body } = ctx.request;
-    if (!id) throw new ApiError(404, 'Bonus ID not defined');
-    const result = await bonusService.update(+id, body);
-    if (!result) throw new ApiError(500, 'Unable to update bonus');
-    ctx.body = parseSuccessResponse(result);
-  }, */
-
-  /*   async delete(ctx) {
-    const { id } = ctx.params;
-    if (!id) throw new ApiError(404, 'Bonus ID not defined');
-    const result = await bonusService.delete(+id);
-    if (!result) throw new ApiError(500, 'Unable to delete bonus');
-    ctx.body = parseSuccessResponse('Succesfully delete bonus');
-  } */
 } as Controller;

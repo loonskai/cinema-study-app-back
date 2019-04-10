@@ -15,6 +15,7 @@ export default {
     await Session.create({ ...body, date: combinedDate });
     return true;
   },
+
   async getAll(params: any): Promise<SessionType[]> {
     const result = await Session.findAll({
       where: params,
@@ -34,17 +35,10 @@ export default {
       ]
     });
     return result;
-  }
-  /*   async update(id: number, body: BonusType): Promise<BonusType> {
-    const result = await Bonus.update(body, {
-      where: { id },
-      returning: true,
-      raw: true
-    });
-    return !!result[0] && result[1];
-  }, */
-  /*   async delete(id: number): Promise<any> {
-    const result = await Bonus.destroy({ where: { id } });
+  },
+
+  async delete(id: number): Promise<boolean> {
+    const result = await Session.destroy({ where: { id } });
     return !!result;
-  } */
+  }
 };
