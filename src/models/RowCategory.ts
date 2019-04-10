@@ -1,8 +1,6 @@
-import Sequilize, { Model } from 'sequelize';
+import Sequelize, { Model } from 'sequelize';
 
 import sequelize from '../config/sequelize';
-
-import RowModel from './Row';
 
 interface CategoryAttributes {
   title: string;
@@ -12,12 +10,12 @@ const RowCategory: Model<CategoryAttributes> | any = sequelize.define(
   'row-category',
   {
     id: {
-      type: Sequilize.INTEGER,
+      type: Sequelize.INTEGER,
       autoIncrement: true,
       primaryKey: true
     },
     title: {
-      type: Sequilize.STRING,
+      type: Sequelize.STRING,
       allowNull: false
     }
   },

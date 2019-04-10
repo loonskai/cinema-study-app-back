@@ -1,4 +1,4 @@
-import Sequilize from 'sequelize';
+import Sequelize from 'sequelize';
 
 import sequelize from '../config/sequelize';
 
@@ -6,20 +6,20 @@ const Movie = sequelize.define(
   'movie',
   {
     id: {
-      type: Sequilize.INTEGER,
+      type: Sequelize.INTEGER,
       autoIncrement: true,
       primaryKey: true
     },
     title: {
-      type: Sequilize.STRING,
+      type: Sequelize.STRING,
       allowNull: false
     },
     overview: {
-      type: Sequilize.STRING(1000),
+      type: Sequelize.STRING(1000),
       allowNull: false
     },
     poster: {
-      type: Sequilize.STRING,
+      type: Sequelize.STRING,
       allowNull: false,
       validate: {
         isUrl: true

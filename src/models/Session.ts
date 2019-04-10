@@ -1,5 +1,6 @@
-import Sequilize from 'sequelize';
+import Sequelize from 'sequelize';
 
+import { SeatItem } from '../types/session';
 import sequelize from '../config/sequelize';
 import Movie from './Movie';
 import Hall from './Hall';
@@ -8,13 +9,30 @@ const Session = sequelize.define(
   'session',
   {
     id: {
-      type: Sequilize.INTEGER,
+      type: Sequelize.INTEGER,
       autoIncrement: true,
       primaryKey: true
     },
     date: {
-      type: Sequilize.DATE,
+      type: Sequelize.DATE,
       allowNull: false
+    },
+    reserved: {
+      type: Sequelize.ARRAY(Sequelize.JSON),
+      get() {
+        return this.getDataValue('reserved') || [];
+      },
+      set(value: SeatItem[]) {
+        const prevValue = this.getDataValue('reserved') || [];
+        const newValue = prevValue.concat(value);
+        this.setDataValue('reserved', newValue);
+      }
+    },
+    ordered: {
+      type: Sequelize.ARRAY(Sequelize.JSON),
+      get() {
+        return this.getDataValue('ordered') || [];
+      }
     }
   },
   {

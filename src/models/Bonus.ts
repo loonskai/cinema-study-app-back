@@ -1,4 +1,4 @@
-import Sequilize from 'sequelize';
+import Sequelize from 'sequelize';
 
 import sequelize from '../config/sequelize';
 
@@ -6,16 +6,16 @@ const Bonus = sequelize.define(
   'bonus',
   {
     id: {
-      type: Sequilize.INTEGER,
+      type: Sequelize.INTEGER,
       autoIncrement: true,
       primaryKey: true
     },
     title: {
-      type: Sequilize.STRING,
+      type: Sequelize.STRING,
       allowNull: false
     },
     price: {
-      type: Sequilize.INTEGER,
+      type: Sequelize.INTEGER,
       allowNull: false,
       validate: {
         isNumeric: true,

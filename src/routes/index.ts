@@ -7,6 +7,7 @@ import data from './data';
 import movies from './movies';
 import bonuses from './bonuses';
 import sessions from './sessions';
+import order from './order';
 
 const router = new Router();
 
@@ -17,5 +18,6 @@ router.use('/data', data.routes());
 router.use('/movies', movies.routes());
 router.use('/bonuses', bonuses.routes());
 router.use('/sessions', sessions.routes());
+router.use('/order', order.routes());
 
 export default router;

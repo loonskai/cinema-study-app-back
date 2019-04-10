@@ -1,4 +1,4 @@
-import Sequilize from 'sequelize';
+import Sequelize from 'sequelize';
 
 import sequelize from '../config/sequelize';
 import RowModel from './Row';
@@ -7,12 +7,12 @@ const Hall = sequelize.define(
   'hall',
   {
     id: {
-      type: Sequilize.INTEGER,
+      type: Sequelize.INTEGER,
       autoIncrement: true,
       primaryKey: true
     },
     title: {
-      type: Sequilize.STRING,
+      type: Sequelize.STRING,
       allowNull: false
     }
   },

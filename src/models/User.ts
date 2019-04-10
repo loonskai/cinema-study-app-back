@@ -1,4 +1,4 @@
-import Sequilize from 'sequelize';
+import Sequelize from 'sequelize';
 
 import sequelize from '../config/sequelize';
 
@@ -6,12 +6,12 @@ const User = sequelize.define(
   'user',
   {
     username: {
-      type: Sequilize.STRING,
+      type: Sequelize.STRING,
       allowNull: false,
       unique: true
     },
     email: {
-      type: Sequilize.STRING,
+      type: Sequelize.STRING,
       allowNull: false,
       unique: true,
       validate: {
@@ -19,11 +19,11 @@ const User = sequelize.define(
       }
     },
     password: {
-      type: Sequilize.STRING,
+      type: Sequelize.STRING,
       allowNull: false
     },
     role: {
-      type: Sequilize.ENUM('client', 'admin'),
+      type: Sequelize.ENUM('client', 'admin'),
       default: 'client'
     }
   },

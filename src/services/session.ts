@@ -4,8 +4,9 @@ import Session from '../models/Session';
 import Movie from '../models/Movie';
 import Hall from '../models/Hall';
 import Cinema from '../models/Cinema';
+import Row from '../models/Row';
 import { SessionType } from '../types/session';
-import { QueryParams } from '../controllers/session';
+import session, { QueryParams } from '../controllers/session';
 
 export default {
   async create(body: SessionType): Promise<boolean | any> {
@@ -30,6 +31,10 @@ export default {
             {
               model: Cinema,
               as: 'cinema'
+            },
+            {
+              model: Row,
+              as: 'rows'
             }
           ]
         }

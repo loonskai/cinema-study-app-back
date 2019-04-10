@@ -1,4 +1,4 @@
-import Sequilize from 'sequelize';
+import Sequelize from 'sequelize';
 
 import sequelize from '../config/sequelize';
 import HallModel from './Hall';
@@ -8,16 +8,16 @@ const Cinema = sequelize.define(
   'cinema',
   {
     id: {
-      type: Sequilize.INTEGER,
+      type: Sequelize.INTEGER,
       autoIncrement: true,
       primaryKey: true
     },
     title: {
-      type: Sequilize.STRING,
+      type: Sequelize.STRING,
       allowNull: false
     },
     city: {
-      type: Sequilize.STRING,
+      type: Sequelize.STRING,
       allowNull: false
     }
   },
