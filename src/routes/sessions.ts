@@ -7,6 +7,7 @@ import validator from '../middlewares/validator';
 const router = new Router();
 
 router.get('/', sessionController.getAll);
+router.get('/:id', sessionController.getByID);
 router.post('/', validator.session, sessionController.create);
 router.delete('/:id', sessionController.delete);
 

@@ -27,6 +27,14 @@ export default {
     ctx.body = parseSuccessResponse(result);
   },
 
+  async getByID(ctx) {
+    const { id } = ctx.params;
+    if (!id) throw new ApiError(404, 'Session ID not defined');
+    const result = await sessionService.getByID(+id);
+    if (!result) throw new ApiError(500, 'Session not found');
+    ctx.body = parseSuccessResponse(result);
+  },
+
   async delete(ctx) {
     const { id } = ctx.params;
     if (!id) throw new ApiError(404, 'Session ID not defined');

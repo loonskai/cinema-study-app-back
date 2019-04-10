@@ -38,6 +38,25 @@ export default {
     return result;
   },
 
+  async getByID(id: number): Promise<SessionType> {
+    const result = await Session.findByPk(id, {
+      include: [
+        { model: Movie, as: 'movie' },
+        {
+          model: Hall,
+          as: 'hall',
+          include: [
+            {
+              model: Cinema,
+              as: 'cinema'
+            }
+          ]
+        }
+      ]
+    });
+    return result;
+  },
+
   async delete(id: number): Promise<boolean> {
     const result = await Session.destroy({ where: { id } });
     return !!result;
