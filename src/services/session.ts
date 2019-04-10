@@ -21,24 +21,18 @@ export default {
   async getAll(params: QueryParams): Promise<SessionType[]> {
     const result = await Session.findAll({
       where: params,
-      order: [['id', 'DESC']],
       include: [
         { model: Movie, as: 'movie' },
         {
           model: Hall,
           as: 'hall',
           include: [
-            {
-              model: Cinema,
-              as: 'cinema'
-            },
-            {
-              model: Row,
-              as: 'rows'
-            }
+            { model: Cinema, as: 'cinema' },
+            { model: Row, as: 'rows', order: ['id', 'asc'] }
           ]
         }
-      ]
+      ],
+      order: [['id', 'DESC']]
     });
     return result;
   },

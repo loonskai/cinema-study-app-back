@@ -10,7 +10,7 @@ export default {
     const { id } = ctx.params;
     if (!id) throw new ApiError(404, 'Session ID not defined');
     const result = await orderService.reserve(+id, body);
-    if (!result) throw new ApiError(500, 'Unable to reserve seats');
-    ctx.body = parseSuccessResponse('Succesfully reserved seats');
+    if (!result) throw new ApiError(500, 'Unable to reserve seat');
+    ctx.body = parseSuccessResponse('Succesfully reserved seat');
   }
 } as Controller;

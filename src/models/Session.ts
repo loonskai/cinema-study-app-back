@@ -32,6 +32,11 @@ const Session = sequelize.define(
       type: Sequelize.ARRAY(Sequelize.JSON),
       get() {
         return this.getDataValue('ordered') || [];
+      },
+      set(value: SeatItem[]) {
+        const prevValue = this.getDataValue('ordered') || [];
+        const newValue = prevValue.concat(value);
+        this.setDataValue('ordered', newValue);
       }
     }
   },
