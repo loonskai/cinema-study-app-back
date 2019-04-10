@@ -1,8 +1,9 @@
 import moment from 'moment';
 import { Op } from 'sequelize';
 import { QueryParams } from '../controllers/session';
+import cinemaService from '../services/cinema';
 
-export default (params: any): QueryParams => {
+export default async (params: any): Promise<QueryParams> => {
   let paramsWithDateParsed = params;
   if (params.date) {
     const startPeriod = moment(params.date)
@@ -17,6 +18,20 @@ export default (params: any): QueryParams => {
         [Op.between]: [new Date(startPeriod), new Date(endPeriod)]
       }
     };
+  }
+  if (!params.hall && (params.city || params.cinema)) {
+    let halls = [] as number[];
+    if (!params.cinema) {
+      const cinemas = await cinemaService.getAll({ city: params.city });
+      halls = cinemas
+        .reduce((acc, cinema) => acc.concat(cinema.halls), [])
+        .map(hall => hall.id);
+    } else {
+      const cinema = await cinemaService.getByID(params.cinema);
+      halls = cinema && cinema.halls.map(hall => hall.id);
+    }
+    paramsWithDateParsed['hall-id'] = { [Op.in]: halls };
+    delete paramsWithDateParsed.city;
   }
   return Object.keys(paramsWithDateParsed)
     .filter(key => !!paramsWithDateParsed[key])

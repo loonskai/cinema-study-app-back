@@ -1,5 +1,5 @@
 import Cinema from '../models/Cinema';
-
+import Hall from '../models/Hall';
 import { CinemaType } from '../types/cinema';
 
 interface QueryParamsType {
@@ -14,15 +14,17 @@ export default {
 
   async getAll(queryParams?: QueryParamsType): Promise<CinemaType[]> {
     const result = await Cinema.findAll({
-      raw: true,
       where: queryParams,
+      include: [{ model: Hall, as: 'halls', raw: true }],
       order: [['id', 'DESC']]
     });
     return result;
   },
 
-  async getByID(id: number): Promise<CinemaType | any> {
-    const result = await Cinema.findByPk(id, { raw: true });
+  async getByID(id: number): Promise<CinemaType> {
+    const result = await Cinema.findByPk(id, {
+      include: [{ model: Hall, as: 'halls', raw: true }]
+    });
     return result;
   },
 
