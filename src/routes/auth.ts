@@ -1,4 +1,6 @@
 import Router from 'koa-router';
+import jwtMiddleware from 'koa-jwt';
+import { env } from '../config/env';
 
 import authController from '../controllers/auth';
 import userController from '../controllers/user';
@@ -10,8 +12,9 @@ const router = new Router();
 
 router.post('/signup', validator.user, userController.create);
 router.post('/signin', compileReqBodyUsername, authController.signin);
+router.post('/google', authController.googleSignin);
+router.use(jwtMiddleware({ secret: env.JWT_SECRET }));
 router.post('/validate', authController.validateToken);
 router.post('/signout', authController.signout);
-router.post('/google', authController.googleSignin);
 
 export default router;
