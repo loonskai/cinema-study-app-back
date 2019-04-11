@@ -51,6 +51,15 @@ const movieSchema = Joi.object().keys({
     .uri()
 });
 
+const priceSchema = Joi.object().keys({
+  id: Joi.number()
+    .positive()
+    .required(),
+  price: Joi.number()
+    .positive()
+    .required()
+});
+
 export default {
   async user(ctx, next) {
     const { body } = ctx.request;
@@ -173,7 +182,8 @@ export default {
       movie: Joi.string().required(),
       hall: Joi.number()
         .positive()
-        .required()
+        .required(),
+      prices: Joi.array().items(priceSchema)
     });
     await Joi.validate(body, schema, customizeJoiError);
     const { movie: title } = body;

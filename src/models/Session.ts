@@ -17,6 +17,10 @@ const Session = sequelize.define(
       type: Sequelize.DATE,
       allowNull: false
     },
+    prices: {
+      type: Sequelize.ARRAY(Sequelize.JSON),
+      allowNull: false
+    },
     reserved: {
       type: Sequelize.ARRAY(Sequelize.JSON),
       get() {
