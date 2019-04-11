@@ -20,8 +20,9 @@ export default {
         transaction,
         returning: true
       });
-      const rowsArrBody = body.rows.map(row => ({
+      const rowsArrBody = body.rows.map((row, index: number) => ({
         ...row,
+        'row-order': index + 1,
         'category-id': row.category,
         'hall-id': hall.id
       }));

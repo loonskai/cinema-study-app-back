@@ -13,6 +13,13 @@ const Row = sequelize.define(
         min: 0
       }
     },
+    'row-order': {
+      type: Sequelize.INTEGER,
+      validate: {
+        isNumeric: true,
+        min: 1
+      }
+    },
     lastInSection: Sequelize.BOOLEAN
   },
   {

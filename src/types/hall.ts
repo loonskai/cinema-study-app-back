@@ -9,6 +9,7 @@ export interface HallType {
 
 export interface RowType {
   'category-id': number;
+  'row-order': number;
   category: number;
   price: number;
   seats: number;
