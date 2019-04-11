@@ -198,5 +198,11 @@ export default {
     }
     body['hall-id'] = hall.id;
     await next();
+  },
+
+  async order(ctx, next) {
+    const { body } = ctx.request;
+    console.log(body);
+    await next();
   }
 } as Controller;

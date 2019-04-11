@@ -3,7 +3,7 @@ import Bonus from '../models/Bonus';
 import { BonusType } from '../types/bonus';
 
 interface QueryParamsType {
-  cinemaID: string;
+  cinemaID: string | number;
 }
 
 export default {
