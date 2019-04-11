@@ -14,7 +14,8 @@ export default {
   },
 
   async getAll(ctx) {
-    const result = await bonusService.getAll();
+    const queryParams = ctx.request.query;
+    const result = await bonusService.getAll(queryParams);
     if (!result) throw new ApiError(500, 'Unable to load bonuses list');
     ctx.body = parseSuccessResponse(result);
   },

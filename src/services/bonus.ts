@@ -2,6 +2,10 @@ import Bonus from '../models/Bonus';
 
 import { BonusType } from '../types/bonus';
 
+interface QueryParamsType {
+  cinemaID: string;
+}
+
 export default {
   async create(body: BonusType): Promise<boolean> {
     const bonusBody = {
@@ -13,8 +17,16 @@ export default {
     return true;
   },
 
-  async getAll(): Promise<BonusType[]> {
-    const result = await Bonus.findAll({ raw: true, order: [['id', 'DESC']] });
+  async getAll(queryParams?: QueryParamsType): Promise<BonusType[]> {
+    const params = {} as { 'cinema-id': number };
+    if (queryParams) {
+      params['cinema-id'] = +queryParams.cinemaID;
+    }
+    const result = await Bonus.findAll({
+      where: params,
+      raw: true,
+      order: [['id', 'DESC']]
+    });
     return result;
   },
 
