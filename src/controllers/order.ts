@@ -2,7 +2,6 @@ import orderService from '../services/order';
 import { Controller } from '../types/base';
 import ApiError from '../classes/ApiError';
 import parseSuccessResponse from '../helpers/parseSuccessResponse';
-import sanitizeSessionQueryParams from '../helpers/sanitizeSessionQueryParams';
 
 export default {
   async reserve(ctx) {

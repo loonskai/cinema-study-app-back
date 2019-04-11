@@ -26,9 +26,21 @@ const Session = sequelize.define(
       get() {
         return this.getDataValue('reserved') || [];
       },
-      set(value: SeatItem[]) {
+      set(value: SeatItem) {
         const prevValue = this.getDataValue('reserved') || [];
-        const newValue = prevValue.concat(value);
+        const pickedBefore = prevValue.find(
+          (item: { row: number; seat: number }) =>
+            value.row === item.row && item.seat === value.seat
+        );
+        let newValue;
+        if (pickedBefore) {
+          newValue = prevValue.filter(
+            (item: { row: number; seat: number }) =>
+              item.row !== value.row || item.seat !== value.seat
+          );
+        } else {
+          newValue = prevValue.concat(value);
+        }
         this.setDataValue('reserved', newValue);
       }
     },
