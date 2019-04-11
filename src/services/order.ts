@@ -2,7 +2,9 @@ import Session from '../models/Session';
 import { SeatItem } from '../types/session';
 
 export default {
-  async create(body: any): Promise<boolean> {
+  async create(body: any, userID: number): Promise<boolean> {
+    console.log('order body', body);
+    console.log('user id', userID);
     return true;
   },
 

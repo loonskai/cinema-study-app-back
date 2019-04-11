@@ -6,7 +6,11 @@ import parseSuccessResponse from '../helpers/parseSuccessResponse';
 export default {
   async create(ctx) {
     const { body } = ctx.request;
-    const result = await orderService.create(body);
+    const { user } = ctx;
+    if (!user || !user.id) {
+      throw new ApiError(500, 'User data is not defined');
+    }
+    const result = await orderService.create(body, user.id);
     if (!result) throw new ApiError(500, 'Unable to create order');
     ctx.body = parseSuccessResponse('Succesfully created order');
   },
