@@ -20,31 +20,37 @@ const Order = sequelize.define(
   }
 );
 
-export const OrderBonuses = sequelize.define('order-bonuses', {
-  'order-id': {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    references: {
-      model: Order,
-      key: 'id'
+export const OrderBonuses = sequelize.define(
+  'order-bonuses',
+  {
+    'order-id': {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      references: {
+        model: Order,
+        key: 'id'
+      }
+    },
+    'bonus-id': {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      references: {
+        model: Bonus,
+        key: 'id'
+      }
+    },
+    quantity: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      validate: {
+        min: 0
+      }
     }
   },
-  'bonus-id': {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    references: {
-      model: Bonus,
-      key: 'id'
-    }
-  },
-  quantity: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    validate: {
-      min: 0
-    }
+  {
+    schema: 'cinemaapp'
   }
-});
+);
 
 Order.belongsToMany(Bonus, {
   through: OrderBonuses,

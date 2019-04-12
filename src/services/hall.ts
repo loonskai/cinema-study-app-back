@@ -1,4 +1,4 @@
-import sequilize from '../config/sequelize';
+import sequelize from '../config/sequelize';
 
 import Hall from '../models/Hall';
 import Row from '../models/Row';
@@ -14,7 +14,7 @@ export default {
       title: body.title,
       'cinema-id': body['cinema-id']
     };
-    const transaction = await sequilize.transaction();
+    const transaction = await sequelize.transaction();
     try {
       const hall = await Hall.create(hallBody, {
         transaction,
