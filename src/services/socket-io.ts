@@ -1,6 +1,8 @@
 import socketioJwt from 'socketio-jwt';
 
 import { env } from '../config/env';
+import orderService from './order';
+import { SeatItem } from '../types/session';
 
 enum SocketEvents {
   CONNECTION = 'connection'
@@ -15,7 +17,32 @@ export default (io: any) => {
       decodedPropertyName: 'tokenData'
     })
   ).on('authenticated', (socket: any) => {
-    console.log(socket.id);
-    console.log('auth via socket. your email: ' + socket.tokenData.email);
+    socket
+      .on(
+        'toggleReservation',
+        async (data: { sessionID: number; item: SeatItem }) => {
+          const isReservationSuccessful = await orderService.reserve(
+            data.sessionID,
+            data.item
+          );
+          if (isReservationSuccessful) {
+            // io.sockets.emit('refreshSeats');
+            socket.broadcast.emit('refreshSeats');
+          }
+        }
+      )
+      .on(
+        'clearReservation',
+        async (data: { sessionID: number; items: SeatItem[] }) => {
+          const isReservationSuccessful = await orderService.cancelReservation(
+            data.sessionID,
+            data.items
+          );
+          if (isReservationSuccessful) {
+            // io.sockets.emit('refreshSeats');
+            socket.broadcast.emit('refreshSeats');
+          }
+        }
+      );
   });
 };
