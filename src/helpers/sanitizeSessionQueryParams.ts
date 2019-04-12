@@ -34,7 +34,6 @@ export default async (params: any): Promise<QueryParams> => {
     delete paramsWithDateParsed.city;
     delete paramsWithDateParsed.cinema;
   }
-  console.log(paramsWithDateParsed);
   return Object.keys(paramsWithDateParsed)
     .filter(key => !!paramsWithDateParsed[key])
     .reduce(
