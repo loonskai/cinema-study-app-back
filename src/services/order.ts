@@ -1,30 +1,16 @@
 import sequelize from '../config/sequelize';
-import Session from '../models/Session';
 import { SeatItem } from '../types/session';
-import OrderModel, { OrderBonuses } from '../models/Order';
+import Session from '../models/Session';
+import OrderModel from '../models/Order';
 import Bonus from '../models/Bonus';
+import User from '../models/User';
+import Movie from '../models/Movie';
+import Hall from '../models/Hall';
+
+import parseOrder from '../helpers/parseOrder';
 
 interface QueryParamsType {
   'user-id': number;
-}
-
-interface OrderType {
-  id: number;
-  seats: { row: number; seat: number }[];
-  createdAt?: Date;
-  updatedAt?: Date;
-  bonuses?: {
-    id: number;
-    title: string;
-    price: number;
-    'order-bonuses': {
-      'order-id': 1;
-      'bonus-id': 1;
-      quantity: number;
-      createdAt: Date;
-      updatedAt: Date;
-    };
-  }[];
 }
 
 export default {
@@ -36,18 +22,31 @@ export default {
           model: Bonus,
           as: 'bonuses',
           attributes: ['id', 'title', 'price']
+        },
+        {
+          model: User,
+          as: 'user',
+          attributes: ['id', 'email', 'username']
+        },
+        {
+          model: Session,
+          as: 'session',
+          attributes: ['id', 'date'],
+          include: [
+            {
+              model: Movie,
+              as: 'movie'
+            },
+            {
+              model: Hall,
+              as: 'hall'
+            }
+          ]
         }
       ],
       order: [['id', 'ASC']]
     });
-    console.log(result);
-    const parsedResult = result.map((order: OrderType) => ({
-      id: order.id,
-      seats: order.seats,
-      createdAt: order.createdAt,
-      updatedAt: order.updatedAt
-    }));
-    return result;
+    return result.map(parseOrder);
   },
 
   async create(body: any, userID: number): Promise<boolean> {
@@ -65,11 +64,11 @@ export default {
       'session-id': body.sessionID,
       seats: body.seats
     };
-    const newOrder = await OrderModel.create(parsedBody, {
-      transaction,
-      returning: true
-    });
-    if (newOrder) {
+    try {
+      const newOrder = await OrderModel.create(parsedBody, {
+        transaction,
+        returning: true
+      });
       const queryPromises: any[] = [];
       body.bonuses.forEach((bonus: { id: number; quantity: number }) => {
         queryPromises.push(
@@ -79,15 +78,12 @@ export default {
           })
         );
       });
-      const result = await Promise.all(queryPromises);
-      console.log(result);
+      await Promise.all(queryPromises);
       await transaction.commit();
-      /*       newOrder.addBonuses(bonus.id, {
-        transaction,
-        through: { quantity: bonus.quantity }
-      }); */
-      // await transaction.commit();
       /* ADD ordered values to sessions table */
+    } catch (error) {
+      if (error) await transaction.rollback();
+      return false;
     }
     return true;
   },
