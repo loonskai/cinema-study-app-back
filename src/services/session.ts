@@ -12,7 +12,7 @@ export default {
   async create(body: SessionType): Promise<boolean | any> {
     const { date, time } = body;
     const combinedDate = moment(
-      `${moment(date).format('YYYY-DD-MM')}T${time}`
+      `${moment(date).format('YYYY-MM-DD')}T${time}`
     ).format();
     await Session.create({ ...body, date: combinedDate });
     return true;

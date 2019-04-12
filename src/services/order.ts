@@ -6,6 +6,7 @@ import Bonus from '../models/Bonus';
 import User from '../models/User';
 import Movie from '../models/Movie';
 import Hall from '../models/Hall';
+import Cinema from '../models/Cinema';
 
 import parseOrder from '../helpers/parseOrder';
 
@@ -39,7 +40,13 @@ export default {
             },
             {
               model: Hall,
-              as: 'hall'
+              as: 'hall',
+              include: [
+                {
+                  model: Cinema,
+                  as: 'cinema'
+                }
+              ]
             }
           ]
         }

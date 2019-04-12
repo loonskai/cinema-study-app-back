@@ -8,10 +8,10 @@ export default async (params: any): Promise<QueryParams> => {
   if (params.date) {
     const startPeriod = moment(params.date)
       .startOf('day')
-      .format('YYYY-DD-MM HH:mm');
+      .format('YYYY-MM-DD HH:mm');
     const endPeriod = moment(params.date)
       .endOf('day')
-      .format('YYYY-DD-MM HH:mm');
+      .format('YYYY-MM-DD HH:mm');
     paramsWithDateParsed = {
       ...params,
       date: {
