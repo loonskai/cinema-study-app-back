@@ -50,14 +50,6 @@ export default {
   },
 
   async create(body: any, userID: number): Promise<boolean> {
-    console.log('order body', body);
-    console.log('user id', userID);
-    const bonusesIDs: number[] = [];
-    const bonusQuantities: number[] = [];
-    body.bonuses.forEach((bonus: { id: number; quantity: number }) => {
-      bonusesIDs.push(bonus.id);
-      bonusQuantities.push(bonus.quantity);
-    });
     const transaction = await sequelize.transaction();
     const parsedBody = {
       'user-id': userID,
@@ -79,8 +71,10 @@ export default {
         );
       });
       await Promise.all(queryPromises);
+      const session = await Session.findByPk(body.sessionID);
+      if (!session) throw new Error();
+      await session.update({ ordered: body.seats }, { transaction });
       await transaction.commit();
-      /* ADD ordered values to sessions table */
     } catch (error) {
       if (error) await transaction.rollback();
       return false;
