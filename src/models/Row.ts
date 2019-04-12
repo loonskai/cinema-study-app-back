@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize';
 
 import sequelize from '../config/sequelize';
-import RowCategoryModel from './RowCategory';
+import RowCategory from './RowCategory';
 
 const Row = sequelize.define(
   'row',
@@ -27,7 +27,7 @@ const Row = sequelize.define(
   }
 );
 
-Row.belongsTo(RowCategoryModel, {
+Row.belongsTo(RowCategory, {
   foreignKey: 'category-id',
   targetKey: 'id'
 });

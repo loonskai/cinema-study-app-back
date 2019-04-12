@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize';
 
 import sequelize from '../config/sequelize';
-import OrderModel from './Order';
+import Order from './Order';
 
 const User = sequelize.define(
   'user',
@@ -34,10 +34,15 @@ const User = sequelize.define(
   }
 );
 
-User.hasMany(OrderModel, {
+User.hasMany(Order, {
   as: 'orders',
   foreignKey: 'user-id',
   onDelete: 'cascade'
+});
+
+Order.belongsTo(User, {
+  foreignKey: 'user-id',
+  targetKey: 'id'
 });
 
 export default User;

@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize';
 
 import sequelize from '../config/sequelize';
-import RowModel from './Row';
+import Row from './Row';
 
 const Hall = sequelize.define(
   'hall',
@@ -21,7 +21,7 @@ const Hall = sequelize.define(
   }
 );
 
-Hall.hasMany(RowModel, {
+Hall.hasMany(Row, {
   as: 'rows',
   foreignKey: 'hall-id',
   onDelete: 'cascade'

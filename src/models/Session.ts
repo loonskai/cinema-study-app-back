@@ -4,6 +4,7 @@ import { SeatItem } from '../types/session';
 import sequelize from '../config/sequelize';
 import Movie from './Movie';
 import Hall from './Hall';
+import Order from './Order';
 
 const Session = sequelize.define(
   'session',
@@ -68,6 +69,11 @@ Session.belongsTo(Movie, {
 
 Session.belongsTo(Hall, {
   foreignKey: 'hall-id',
+  targetKey: 'id'
+});
+
+Order.belongsTo(Session, {
+  foreignKey: 'session-id',
   targetKey: 'id'
 });
 

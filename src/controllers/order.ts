@@ -15,6 +15,16 @@ export default {
     ctx.body = parseSuccessResponse('Succesfully created order');
   },
 
+  async getPersonalAll(ctx) {
+    const { user } = ctx;
+    if (!user || !user.id) {
+      throw new ApiError(500, 'User data is not defined');
+    }
+    const result = await orderService.getAll({ 'user-id': user.id });
+    if (!result) throw new ApiError(500, 'Unable to load order list');
+    ctx.body = parseSuccessResponse(result);
+  },
+
   async reserve(ctx) {
     const { body } = ctx.request;
     const { id } = ctx.params;
