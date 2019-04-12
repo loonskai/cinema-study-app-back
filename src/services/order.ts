@@ -50,12 +50,12 @@ export default {
   },
 
   async create(body: any, userID: number): Promise<boolean> {
-    const transaction = await sequelize.transaction();
     const parsedBody = {
       'user-id': userID,
       'session-id': body.sessionID,
       seats: body.seats
     };
+    const transaction = await sequelize.transaction();
     try {
       const newOrder = await OrderModel.create(parsedBody, {
         transaction,
@@ -82,10 +82,28 @@ export default {
     return true;
   },
 
-  async reserve(sessionID: number, body: SeatItem[]): Promise<boolean> {
+  async reserve(sessionID: number, body: SeatItem): Promise<boolean> {
     const session = await Session.findByPk(sessionID);
     if (!session) return false;
     session.update({ reserved: body });
+    return true;
+  },
+
+  async cancelReservation(sessionID: number, seatsToCancel: SeatItem[]) {
+    const session = await Session.findByPk(sessionID);
+    if (!session) return false;
+    const transaction = await sequelize.transaction();
+    try {
+      const queryPromises: any[] = [];
+      seatsToCancel.forEach(seatToCancel => {
+        queryPromises.push(session.update({ reserved: seatToCancel }));
+      });
+      await Promise.all(queryPromises);
+      await transaction.commit();
+    } catch (error) {
+      if (error) await transaction.rollback();
+      return false;
+    }
     return true;
   }
 };

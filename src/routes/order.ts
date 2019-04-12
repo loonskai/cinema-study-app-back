@@ -12,5 +12,6 @@ router.use(parseUserMiddleware);
 router.get('/my', orderController.getPersonalAll);
 router.post('/', validator.order, orderController.create);
 router.post('/reserve/:id', orderController.reserve);
+router.post('/reserve/clear/:id', orderController.cancelReservation);
 
 export default router;
