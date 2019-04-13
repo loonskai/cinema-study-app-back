@@ -1,0 +1,19 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint-config-airbnb",
+    "tslint-config-prettier",
+    "tslint-plugin-prettier"
+  ],
+  "jsRules": {},
+  "rulesDirectory": ["tslint-plugin-prettier"],
+  "rules": {
+    "prettier": [true, ".prettierrc"],
+    "no-console": false,
+    "interface-name": false,
+    "object-literal-sort-keys": false,
+    "max-classes-per-file": false,
+    "import-name": false,
+    "variable-name": false
+  }
+}

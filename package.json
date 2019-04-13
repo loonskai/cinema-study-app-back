@@ -1,0 +1,69 @@
+{
+  "name": "cinema-study-app-back",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cross-env NODE_ENV=development nodemon --watch 'src/**/*' -e ts,tsx --exec 'ts-node' src/bin/www.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sergaunt/cinema-study-app-back.git"
+  },
+  "author": "Siarhei Lunski",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sergaunt/cinema-study-app-back/issues"
+  },
+  "homepage": "https://github.com/sergaunt/cinema-study-app-back#readme",
+  "dependencies": {
+    "@koa/cors": "^2.2.3",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^7.0.0",
+    "joi": "^14.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.7.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-helmet": "^4.1.0",
+    "koa-jwt": "^3.5.1",
+    "koa-logger": "^3.2.0",
+    "koa-passport": "^4.1.1",
+    "koa-router": "^7.4.0",
+    "moment": "^2.24.0",
+    "passport-local": "^1.0.0",
+    "pg": "^7.8.2",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^5.1.0",
+    "sequelize-cli": "^5.4.0",
+    "sequelize-typescript": "^1.0.0-alpha.9",
+    "socket.io": "^2.2.0",
+    "socketio-jwt": "^4.5.0",
+    "yenv": "^2.1.0"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/dotenv": "^6.1.0",
+    "@types/joi": "^14.3.2",
+    "@types/koa": "^2.0.48",
+    "@types/koa-bodyparser": "^4.2.2",
+    "@types/koa-helmet": "^3.1.2",
+    "@types/koa-logger": "^3.1.1",
+    "@types/koa-passport": "^4.0.2",
+    "@types/koa-router": "^7.0.40",
+    "@types/koa__cors": "^2.2.3",
+    "@types/node": "^11.11.4",
+    "@types/passport-local": "^1.0.33",
+    "@types/socket.io": "^2.1.2",
+    "@types/socketio-jwt": "0.0.0",
+    "cross-env": "^5.2.0",
+    "nodemon": "^1.18.10",
+    "prettier": "^1.16.4",
+    "ts-node": "^8.0.3",
+    "tslint": "^5.14.0",
+    "tslint-config-airbnb": "^5.11.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "typescript": "^3.3.4000"
+  }
+}
