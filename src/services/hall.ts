@@ -1,8 +1,7 @@
+import { HallType } from '../types/hall';
 import sequelize from '../config/sequelize';
-
 import Hall from '../models/Hall';
 import Row from '../models/Row';
-import { HallType } from '../types/hall';
 
 interface QueryParamsType {
   'cinema-id': number;

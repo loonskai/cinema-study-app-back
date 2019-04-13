@@ -1,9 +1,8 @@
 import bcryptjs from 'bcryptjs';
 
 import { Controller } from '../types/base';
-
-import userService from '../services/user';
 import ApiError from '../classes/ApiError';
+import userService from '../services/user';
 import parseSuccessResponse from '../helpers/parseSuccessResponse';
 
 export default {

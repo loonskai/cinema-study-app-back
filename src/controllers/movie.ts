@@ -1,8 +1,6 @@
-import movieService from '../services/movie';
-
 import { Controller } from '../types/base';
-
 import ApiError from '../classes/ApiError';
+import movieService from '../services/movie';
 import parseSuccessResponse from '../helpers/parseSuccessResponse';
 
 export default {

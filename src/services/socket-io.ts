@@ -1,11 +1,15 @@
 import socketioJwt from 'socketio-jwt';
 
+import { SeatItem } from '../types/session';
 import { env } from '../config/env';
 import orderService from './order';
-import { SeatItem } from '../types/session';
 
 enum SocketEvents {
-  CONNECTION = 'connection'
+  CONNECTION = 'connection',
+  AUTHENTICATED = 'authenticated',
+  TOGGLE_RESERVATION = 'toggleReservation',
+  CLEAR_RESERVATION = 'clearReservation',
+  REFRESH_SEATS = 'refreshSeats'
 }
 
 export default (io: any) => {
@@ -16,25 +20,23 @@ export default (io: any) => {
       timeout: 15000,
       decodedPropertyName: 'tokenData'
     })
-  ).on('authenticated', (socket: any) => {
+  ).on(SocketEvents.AUTHENTICATED, (socket: any) => {
     socket
       .on(
-        'toggleReservation',
+        SocketEvents.TOGGLE_RESERVATION,
         async (data: { sessionID: number; item: SeatItem }) => {
           const isReservationSuccessful = await orderService.reserve(
             socket.tokenData.id,
             data.sessionID,
             data.item
           );
-          console.log(isReservationSuccessful);
           if (isReservationSuccessful) {
-            // io.sockets.emit('refreshSeats');
-            socket.broadcast.emit('refreshSeats');
+            socket.broadcast.emit(SocketEvents.REFRESH_SEATS);
           }
         }
       )
       .on(
-        'clearReservation',
+        SocketEvents.CLEAR_RESERVATION,
         async (data: { sessionID: number; items: SeatItem[] }) => {
           const isReservationSuccessful = await orderService.cancelReservation(
             socket.tokenData.id,
@@ -42,8 +44,7 @@ export default (io: any) => {
             data.items
           );
           if (isReservationSuccessful) {
-            // io.sockets.emit('refreshSeats');
-            socket.broadcast.emit('refreshSeats');
+            socket.broadcast.emit(SocketEvents.REFRESH_SEATS);
           }
         }
       );

@@ -1,19 +1,12 @@
 import passport from 'koa-passport';
 import jwt from 'jsonwebtoken';
 
-import { Controller } from '../types/base';
-
 import '../config/passport';
 import { env } from '../config/env';
+
+import { Controller } from '../types/base';
 import ApiError from '../classes/ApiError';
 import parseSuccessResponse from '../helpers/parseSuccessResponse';
-
-interface ParsedToken {
-  id: number;
-  email: string;
-  role: string;
-  iat: number;
-}
 
 export default {
   async signin(ctx, next) {
@@ -52,9 +45,5 @@ export default {
       userID: result.id,
       role: result.role
     });
-  },
-
-  async googleSignin(ctx) {
-    passport.authenticate('google');
   }
 } as Controller;

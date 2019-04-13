@@ -1,7 +1,7 @@
 import { Middleware } from 'koa';
-import { env } from '../config/env';
 import jwt from 'jsonwebtoken';
 
+import { env } from '../config/env';
 import ApiError from '../classes/ApiError';
 
 const adminMiddleware: Middleware = async (ctx, next) => {

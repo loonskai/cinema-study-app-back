@@ -1,8 +1,6 @@
 import hallService from '../services/hall';
-
-import { Controller } from '../types/base';
-
 import ApiError from '../classes/ApiError';
+import { Controller } from '../types/base';
 import parseSuccessResponse from '../helpers/parseSuccessResponse';
 
 export default {

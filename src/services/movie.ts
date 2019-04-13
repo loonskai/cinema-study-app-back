@@ -1,6 +1,5 @@
-import Movie from '../models/Movie';
-
 import { MovieType } from '../types/movie';
+import Movie from '../models/Movie';
 
 export interface FindOptionsType {
   title: string;

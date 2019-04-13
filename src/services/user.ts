@@ -1,14 +1,11 @@
-import User from '../models/User';
-
 import { UserType } from '../types/user';
+import User from '../models/User';
 
 export default {
   async create(body: UserType) {
     await User.create(body);
     return true;
   },
-
-  findById(id: number) {},
 
   async findByUsername(username: string) {
     const result = await User.findOne({
@@ -22,7 +19,5 @@ export default {
       where: { email }
     });
     return result;
-  },
-
-  delete(id: number) {}
+  }
 };

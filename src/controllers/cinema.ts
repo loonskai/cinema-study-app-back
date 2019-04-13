@@ -1,8 +1,6 @@
-import cinemaService from '../services/cinema';
-
 import { Controller } from '../types/base';
-
 import ApiError from '../classes/ApiError';
+import cinemaService from '../services/cinema';
 import parseSuccessResponse from '../helpers/parseSuccessResponse';
 
 export default {

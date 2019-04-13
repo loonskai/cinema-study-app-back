@@ -1,8 +1,6 @@
-import dataService from '../services/data';
-
 import { Controller } from '../types/base';
-
 import ApiError from '../classes/ApiError';
+import dataService from '../services/data';
 import parseSuccessResponse from '../helpers/parseSuccessResponse';
 
 export default {

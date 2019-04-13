@@ -1,6 +1,6 @@
-import orderService from '../services/order';
 import { Controller } from '../types/base';
 import ApiError from '../classes/ApiError';
+import orderService from '../services/order';
 import parseSuccessResponse from '../helpers/parseSuccessResponse';
 
 export default {

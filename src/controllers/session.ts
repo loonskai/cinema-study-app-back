@@ -1,6 +1,6 @@
-import sessionService from '../services/session';
 import { Controller } from '../types/base';
 import ApiError from '../classes/ApiError';
+import sessionService from '../services/session';
 import parseSuccessResponse from '../helpers/parseSuccessResponse';
 import sanitizeSessionQueryParams from '../helpers/sanitizeSessionQueryParams';
 

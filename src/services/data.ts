@@ -1,8 +1,7 @@
+import { RowCategoryType } from '../types/hall';
 import RowCategory from '../models/RowCategory';
 import Cinema from '../models/Cinema';
 import hallService from '../services/hall';
-
-import { RowCategoryType } from '../types/hall';
 
 interface QueryParams {
   hallID?: number;

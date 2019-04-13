@@ -12,5 +12,5 @@ console.log('Socket connection established.');
 
 server.listen(env.PORT, () => {
   const mode = env.NODE_ENV;
-  console.log(`Server listening on ${env.PORT} in ${mode} mode`);
+  console.log(`Server listening on ${env.PORT} in ${mode} mode.`);
 });

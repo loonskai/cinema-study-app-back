@@ -1,14 +1,10 @@
 import passport from 'koa-passport';
 import passportLocal from 'passport-local';
-import passportJwt from 'passport-jwt';
 import bcryptjs from 'bcryptjs';
 
-import { env } from '../config/env';
-import apiError from '../classes/ApiError';
 import userService from '../services/user';
 
 const LocalStrategy: any = passportLocal.Strategy;
-const JwtStrategy = passportJwt.Strategy;
 
 passport.use(
   new LocalStrategy(
@@ -33,23 +29,4 @@ passport.use(
   )
 );
 
-const jwtOptions = {
-  jwtFromRequest: passportJwt.ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: env.JWT_SECRET
-} as any;
-
-passport.use(
-  new JwtStrategy(jwtOptions, async (jwt_payload: any, done: any) => {
-    try {
-      const user: any = await userService.findById(jwt_payload.id);
-      if (!user) return done(null, false);
-      return done(null, user);
-    } catch (error) {
-      console.error(error);
-      return done(error, null);
-    }
-  })
-);
-
 export default passport;
-// passport.use(new GoogleStrategy());

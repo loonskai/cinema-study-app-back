@@ -1,6 +1,5 @@
-import Bonus from '../models/Bonus';
-
 import { BonusType } from '../types/bonus';
+import Bonus from '../models/Bonus';
 
 interface QueryParamsType {
   cinemaID: string | number;

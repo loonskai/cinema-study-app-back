@@ -1,5 +1,5 @@
-import sequelize from '../config/sequelize';
 import { SeatItem } from '../types/session';
+import sequelize from '../config/sequelize';
 import Session from '../models/Session';
 import OrderModel from '../models/Order';
 import Bonus from '../models/Bonus';
@@ -7,7 +7,6 @@ import User from '../models/User';
 import Movie from '../models/Movie';
 import Hall from '../models/Hall';
 import Cinema from '../models/Cinema';
-
 import parseOrder from '../helpers/parseOrder';
 
 interface QueryParamsType {

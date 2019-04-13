@@ -1,18 +1,16 @@
 import Joi from 'joi';
 
 import { Controller } from '../types/base';
-
+import { MovieType } from '../types/movie';
+import { HallType } from '../types/hall';
+import { SessionType } from '../types/session';
+import ApiError from '../classes/ApiError';
 import userService from '../services/user';
 import cinemaService from '../services/cinema';
 import movieService from '../services/movie';
 import hallService from '../services/hall';
 import sessionService from '../services/session';
 import customizeJoiError from '../helpers/customizeJoiError';
-import ApiError from '../classes/ApiError';
-import { MovieType } from '../types/movie';
-import hall from '../controllers/hall';
-import { HallType } from '../types/hall';
-import { SessionType } from '../types/session';
 
 const rowSchema = Joi.object().keys({
   category: Joi.number()

@@ -1,6 +1,6 @@
+import { CinemaType } from '../types/cinema';
 import Cinema from '../models/Cinema';
 import Hall from '../models/Hall';
-import { CinemaType } from '../types/cinema';
 
 interface QueryParamsType {
   city: string;

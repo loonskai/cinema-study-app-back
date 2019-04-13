@@ -1,8 +1,6 @@
-import bonusService from '../services/bonus';
-
 import { Controller } from '../types/base';
-
 import ApiError from '../classes/ApiError';
+import bonusService from '../services/bonus';
 import parseSuccessResponse from '../helpers/parseSuccessResponse';
 
 export default {
