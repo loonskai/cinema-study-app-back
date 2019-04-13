@@ -22,9 +22,11 @@ export default (io: any) => {
         'toggleReservation',
         async (data: { sessionID: number; item: SeatItem }) => {
           const isReservationSuccessful = await orderService.reserve(
+            socket.tokenData.id,
             data.sessionID,
             data.item
           );
+          console.log(isReservationSuccessful);
           if (isReservationSuccessful) {
             // io.sockets.emit('refreshSeats');
             socket.broadcast.emit('refreshSeats');
@@ -35,6 +37,7 @@ export default (io: any) => {
         'clearReservation',
         async (data: { sessionID: number; items: SeatItem[] }) => {
           const isReservationSuccessful = await orderService.cancelReservation(
+            socket.tokenData.id,
             data.sessionID,
             data.items
           );

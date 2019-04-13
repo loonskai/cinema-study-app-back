@@ -1,6 +1,7 @@
 export interface SeatItem {
   row: number;
   seat: number;
+  userID: number;
 }
 
 export interface SessionType {

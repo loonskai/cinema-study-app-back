@@ -28,8 +28,12 @@ export default {
   async reserve(ctx) {
     const { body } = ctx.request;
     const { id } = ctx.params;
+    const { user } = ctx;
+    if (!user || !user.id) {
+      throw new ApiError(500, 'User data is not defined');
+    }
     if (!id) throw new ApiError(404, 'Session ID not defined');
-    const result = await orderService.reserve(+id, body);
+    const result = await orderService.reserve(user.id, +id, body);
     if (!result) throw new ApiError(500, 'Unable to reserve seat');
     ctx.body = parseSuccessResponse('Succesfully reserved seat');
   },
@@ -37,12 +41,20 @@ export default {
   async cancelReservation(ctx) {
     const { body } = ctx.request;
     const { id } = ctx.params;
+    const { user } = ctx;
+    if (!user || !user.id) {
+      throw new ApiError(500, 'User data is not defined');
+    }
     if (!id) throw new ApiError(404, 'Session ID not defined');
     const parsedBody = body.map((item: any) => ({
       row: item.row,
       seat: item.seat
     }));
-    const result = await orderService.cancelReservation(+id, parsedBody);
+    const result = await orderService.cancelReservation(
+      user.id,
+      +id,
+      parsedBody
+    );
     if (!result) throw new ApiError(500, 'Unable to cancel reservation');
     ctx.body = parseSuccessResponse('Succesfully reserved seat');
   }

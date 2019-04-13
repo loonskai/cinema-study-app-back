@@ -89,21 +89,31 @@ export default {
     return true;
   },
 
-  async reserve(sessionID: number, body: SeatItem): Promise<boolean> {
+  async reserve(
+    userID: number,
+    sessionID: number,
+    body: SeatItem
+  ): Promise<boolean> {
     const session = await Session.findByPk(sessionID);
     if (!session) return false;
-    session.update({ reserved: body });
+    session.update({ reserved: { ...body, userID } });
     return true;
   },
 
-  async cancelReservation(sessionID: number, seatsToCancel: SeatItem[]) {
+  async cancelReservation(
+    userID: number,
+    sessionID: number,
+    seatsToCancel: SeatItem[]
+  ) {
     const session = await Session.findByPk(sessionID);
     if (!session) return false;
     const transaction = await sequelize.transaction();
     try {
       const queryPromises: any[] = [];
       seatsToCancel.forEach(seatToCancel => {
-        queryPromises.push(session.update({ reserved: seatToCancel }));
+        queryPromises.push(
+          session.update({ reserved: { ...seatToCancel, userID } })
+        );
       });
       await Promise.all(queryPromises);
       await transaction.commit();

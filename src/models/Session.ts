@@ -30,14 +30,18 @@ const Session = sequelize.define(
       set(value: SeatItem) {
         const prevValue = this.getDataValue('reserved') || [];
         const pickedBefore = prevValue.find(
-          (item: { row: number; seat: number }) =>
-            value.row === item.row && item.seat === value.seat
+          (item: { row: number; seat: number; userID: number }) =>
+            value.row === item.row &&
+            item.seat === value.seat &&
+            item.userID === value.userID
         );
         let newValue;
         if (pickedBefore) {
           newValue = prevValue.filter(
-            (item: { row: number; seat: number }) =>
-              item.row !== value.row || item.seat !== value.seat
+            (item: { row: number; seat: number; userID: number }) =>
+              item.row !== value.row ||
+              item.seat !== value.seat ||
+              item.userID !== value.userID
           );
         } else {
           newValue = prevValue.concat(value);

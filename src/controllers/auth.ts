@@ -28,6 +28,7 @@ export default {
       ctx.body = parseSuccessResponse({
         token,
         user: user.email,
+        userID: user.id,
         role: user.role
       });
     })(ctx, next as any);
@@ -48,6 +49,7 @@ export default {
     }
     ctx.body = parseSuccessResponse({
       user: result.email,
+      userID: result.id,
       role: result.role
     });
   },
