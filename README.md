@@ -2,8 +2,6 @@
 
 ## Run application locally
 
----
-
 > Application uses PostgreSQL DBMS
 
 1. Run `npm install` to install dependencies
