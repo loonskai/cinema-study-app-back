@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc -p . && NODE_ENV=production node dist/bin/www.js",
-    "dev": "cross-env NODE_ENV=development nodemon --watch 'src/**/*' -e ts,tsx --exec 'ts-node' src/bin/www.ts"
+    "build": "tsc -p . && NODE_ENV=production node dist/bin/www.js",
+    "start": "cross-env NODE_ENV=development nodemon --watch 'src/**/*' -e ts,tsx --exec 'ts-node' src/bin/www.ts"
   },
   "repository": {
     "type": "git",
