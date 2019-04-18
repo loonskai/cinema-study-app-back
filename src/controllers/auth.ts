@@ -15,12 +15,14 @@ export default {
       const payload = {
         id: user.id,
         email: user.email,
+        username: user.username,
         role: user.role
       };
       const token = jwt.sign(payload, env.JWT_SECRET);
       ctx.body = parseSuccessResponse({
         token,
         user: user.email,
+        userName: user.username,
         userID: user.id,
         role: user.role
       });
@@ -42,6 +44,7 @@ export default {
     }
     ctx.body = parseSuccessResponse({
       user: result.email,
+      userName: result.username,
       userID: result.id,
       role: result.role
     });
